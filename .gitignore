@@ -1,0 +1,12 @@
+.Rproj.user
+.Rhistory
+.RData
+.Ruserdata
+*/*.csv
+*/*.rda
+*/*.txt
+*/.Rapp.history
+.DS_Store
+*/.DS_Store
+*.Rproj
+

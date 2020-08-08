@@ -1,0 +1,15 @@
+Package: qalyr
+Type: Package
+Title: Calculate health state utility values
+Version: 0.2.0
+Author: c(person(given = "Laura", family = "Webster", role = c("aut", "cre"), email = "laura.webster@sheffield.ac.uk"),person(given = "Duncan", family = "Gillespie", role = c("aut", "cre"), email = "duncan.gillespie@sheffield.ac.uk"))
+Maintainer: Laura Webster <laura.webster@sheffield.ac.uk>
+Description: Processes health state utility values from the HODaR data and general population utility values from the Health Survey for England.
+License: For internal University of Sheffield use only.
+Encoding: UTF-8
+LazyData: true
+Depends: 
+    data.table
+Imports: 
+    eq5d
+RoxygenNote: 6.1.1
