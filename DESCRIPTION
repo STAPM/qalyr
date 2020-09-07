@@ -12,4 +12,4 @@ Depends:
     data.table
 Imports: 
     eq5d
-RoxygenNote: 6.1.1
+RoxygenNote: 7.1.0

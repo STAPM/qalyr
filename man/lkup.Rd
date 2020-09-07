@@ -4,7 +4,9 @@
 \name{lkup}
 \alias{lkup}
 \title{lkup data with alcohol and tobacco-related conditions and ICD-10 codes}
-\format{A data table (icd_code, Description).}
+\format{
+A data table (icd_code, Description).
+}
 \source{
 
 }

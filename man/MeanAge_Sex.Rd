@@ -15,9 +15,10 @@ MeanAge_Sex(data, lkup = qalyr::lkup)
 Returns a summary table of condition-specific mean ages and male proportions
 }
 \description{
-In order to calculate the  average utility for each alcohol/tobacco-related condition by age and sex, we
-need to calculate the mean age and proportion of males for each condition in the HODAR data. This function uses the merged
-HoDAR and inpatient data to estimate the average age and mean proportion of males admitted for each condition.
+In order to calculate the  average utility for each alcohol/tobacco-related condition
+by age and sex, we need to calculate the mean age and proportion of males for each condition
+in the HODAR data. This function uses the merged HoDAR and inpatient data to estimate the
+average age and mean proportion of males admitted for each condition.
 }
 \examples{
 

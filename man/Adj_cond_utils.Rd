@@ -4,9 +4,11 @@
 \alias{Adj_cond_utils}
 \title{Adjust the condition-specific utility for age and sex}
 \usage{
-Adj_cond_utils(Age_Sex_data = qalyr::Age_Sex_data,
+Adj_cond_utils(
+  Age_Sex_data = qalyr::Age_Sex_data,
   Condition_utilities = qalyr::util_data,
-  GenPopUtil = qalyr::GenPopUtil)
+  GenPopUtil = qalyr::GenPopUtil
+)
 }
 \arguments{
 \item{Age_Sex_data}{mean age and proportion of males for in condition in data. Calculated using function *MeanAge_Sex()* - data stored in package
@@ -20,10 +22,11 @@ as qalyr::Age_Sex_data.}
 Returns a summary table of condition-specific utilities.
 }
 \description{
-Calculates an average utility for each alcohol/tobacco-related condition by age and sex. Need to calculate the mean age and proportion
-of males for each condition in the HODAR data. Need to calculate the matched age-sex specific general population utility using the Ara
-and Brazier 2011 formula. Dividing these will give the multiplier by which to adjust the general population utility score by, to get age
-adjusted condition-specific utilities.
+Calculates an average utility for each alcohol/tobacco-related condition by age and sex.
+Need to calculate the mean age and proportion of males for each condition in the HODAR data.
+Need to calculate the matched age-sex specific general population utility using the Ara
+and Brazier 2011 formula. Dividing these will give the multiplier by which to adjust the
+general population utility score by, to get age-adjusted condition-specific utilities.
 }
 \examples{
 

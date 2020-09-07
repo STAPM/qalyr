@@ -33,26 +33,6 @@ decision-analytic models. *describe data*. The suite of functions within
 
 `qalyr` is a package for estimating health state utility values.
 
-The **inputs** are the raw survey data files for each year.
-
-The **processes** applied by the functions in `qalyr` give options to:
-
-1.  Read tobacco and alcohol related variables and the information on
-    individual characteristics that we use in our analyses.  
-2.  Clean alcohol consumption data, applying assumptions about beverage
-    size and alcohol content.  
-3.  Clean data on current smoking and smoking history.  
-4.  Clean data on individual characteristics including age, sex,
-    ethnicity, economic status, family, health and income.  
-5.  Multiply impute missing data.  
-6.  Summarise categorical variables using proportions, considering
-    survey design.
-
-The **output** of these processes is a cleaned dataset that is ready for
-further analysis. This dataset can be saved so that you don’t need to
-run the cleaning processes in `qalyr` each time you want to use the
-cleaned data.
-
 ## Installation
 
 `qalyr` is currently available only to members of the project team (but

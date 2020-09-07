@@ -24,7 +24,7 @@ library(data.table)
 ```
 
 
-```{r install package, eval = T, echo = F, warning = F, message = F, cache = FALSE}
+```{r install package, eval = F, echo = F, warning = F, message = F, cache = FALSE}
 #install.packages("//tsclient/X/ScHARR/PR_STAPM/Code/R_packages/qalyr_0.1.0.zip", repos = NULL)
 install.packages("qalyr_0.1.0.zip", repos = NULL)
 library("qalyr")
@@ -73,7 +73,7 @@ This is stored in the package in the folder `Data` as `util_data`, which can be 
 
 Here is a sample of the condition-specific utilities for our alcohol and tobacco list...
 
-```{r util, eval = T, warning = F, echo = F, message = F, cache = FALSE}
+```{r util, eval = F, warning = F, echo = F, message = F, cache = FALSE}
 library(knitr)
 
 util_data <- qalyr::util_data
@@ -89,7 +89,7 @@ We use the literature to inform our general population utilities. Baseline HSUVs
 $$Baseline\ utility = 0.9508566 + 0.0212126\ sex - 0.0002587\ age - 0.0000332\ age^2  \ \ \ \ \ \ \ \ \ \ \ [1]$$
 This data is stored in the package in `Data` as `GenPopUtil`, and can be accessed by `qalyr::GenPopUtil`.
 
-```{r gen pop, eval = T, echo = F, warning = F, message = F, cache = F}
+```{r gen pop, eval = F, echo = F, warning = F, message = F, cache = F}
 
 gen_pop_util <- qalyr::GenPopUtil
 
@@ -107,7 +107,7 @@ The multiplier for a condition is obtained using the HSUV for the condition and 
 In order to calculate age-sex-condition specific HSUVs, we need to calculate the mean age and proportion of males in the condition population. We do this by using the merged HODAR and inpatient data collapsed into survey level data. We average across the surveys for each condition to calculate the average age and proportion of males with that condition. 
 
 
-```{r age male proportion, eval = T, warning = F, message = F, cache = F}
+```{r age male proportion, eval = F, warning = F, message = F, cache = F}
 
 age_sex <- qalyr::Age_Sex_data
 
@@ -164,7 +164,7 @@ adj_cond_utils <- Adj_cond_utils(Age_Sex_data = qalyr::Age_Sex_data,
 ```
 
 
-```{r pneumonia, eval = T, echo = F, warning = F, out.extra = '', fig.width = 8, fig.height = 6, fig.cap = "Comparison of age-specific HSUVs for the general population and Pneumonia."}
+```{r pneumonia, eval = F, echo = F, warning = F, out.extra = '', fig.width = 8, fig.height = 6, fig.cap = "Comparison of age-specific HSUVs for the general population and Pneumonia."}
 
 # Plot of GP against condition
 cond <- qalyr::AgeSexCondUtil
