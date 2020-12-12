@@ -66,7 +66,7 @@ A utility value is extracted for each condition based on ICD-10 codes. While uti
 For conditions where no utility data was available, utilities were assumed to be similar to close conditions. Thus, utilities for alcohol induced Cushing syndrome were assumed to be similar to alcoholic polyneuropathy. Utilities for alcoholic myopathy were assumed to be similar to utilities for alcohol cardiomyopathy. The utility for excessive blood level of alcohol was assumed to be similar to evidence of alcohol involvement determined by blood alcohol level. Utilities for drowning were assumed to be similar to transport injuries. Finally, utilities for other intentional injuries were assumed to be similar to other unintentional injuries. \href{https://www.nice.org.uk/guidance/ph24/evidence/economic-modelling-report-371533357}{SAPM model}.
 
 ## Objective two: General population utilities
-We use published estimates to inform our general population utilities. Baseline HSUVs profiles are assumed to be equal to the profile of HSUVs from the general population, adjusted for age and sex (i.e. all individuals irrespective of disease history). A formula was created using the Health Survey for England (n = 26,679). The code `Prep_GenPopUtil.R` creates a new data table where all combinations of age and sex are present. Age-sex-specific general population utilities are calculated using the formula from Ara and Brazier [-@Ara2010]:
+We use published estimates to inform our general population utilities. Baseline HSUVs profiles are assumed to be equal to the profile of HSUVs from the general population, adjusted for age and sex (i.e. all individuals irrespective of disease history). A formula was created using the Health Survey for England (n = 26,679). The code in data_raw `Prep_GenPopUtil.R` creates a new data table where all combinations of age and sex are present - this is embedded as package data. Age-sex-specific general population utilities are calculated using the formula from Ara and Brazier [-@Ara2010]:
 
 $$Baseline\ utility = 0.9508566 + 0.0212126\ sex - 0.0002587\ age - 0.0000332\ age^2  \ \ \ \ \ \ \ \ \ \ \ [1]$$
 ## Objective three: Adjust condition-specific utilities by age and sex 
@@ -77,7 +77,7 @@ The multiplier for a condition is obtained using the HSUV for the condition and 
 
 In order to calculate age-sex-condition specific HSUVs, we need to calculate the mean age and proportion of males in the condition population. We do this by using the merged HODAR and inpatient data collapsed into survey level data. We average across the surveys for each condition to calculate the average age and proportion of males with that condition. 
 
-Need to calculate the matched age-sex-specific general population utility using Eqn [1]. In the function `Adj_cond_utils()`, we read in the general populatin utilities (`qalyr::GenPopUtil`), the mean age and sex by condition (`qalyr::Age_Sex_data`), and the condition-specific utilities (`qalyr::util_data`). Building on Age_Sex_data, we create a column for the matched general population HSUV using the mean age and proportion of males as inputs to Eqn [1]. The matched general population HSUV gives the general population HSUV for the same population as those who get sick from that condition. This is a way to match the two HSUVs to calculate the multiplier. 
+Need to calculate the matched age-sex-specific general population utility using Eqn [1]. In the function `Adj_cond_utils()`, we read in the general populatin utilities (`qalyr::GenPopUtil`), the mean age and sex by condition, and the condition-specific utilities. Building on Age_Sex_data, we create a column for the matched general population HSUV using the mean age and proportion of males as inputs to Eqn [1]. The matched general population HSUV gives the general population HSUV for the same population as those who get sick from that condition. This is a way to match the two HSUVs to calculate the multiplier. 
 
 The multiplier is simply the condition-specific HSUV ($U_c$) divided by the matched general population HSUV ($U_{MGP}$). This gives a constant. 
 
@@ -87,8 +87,6 @@ To calculate the age-sex-condition-specific HSUVs is then simply a case of multi
 
 
 $$ U_{c}(a,s) = U_{GP}(a,s) * Multiplier_{c}$$
-
-The age-sex-condition-specific HSUVs are stored in the package in the folder `Data` under `AgeSexCondUtil`, to be accessed using qalyr::AgeSexCondUtil. These are also saved as a csv file in the folder `Data-raw` for access outside of the package. 
 
 
 ## References 
