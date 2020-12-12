@@ -2,29 +2,34 @@
 % Please edit documentation in R/CalcUtils.R
 \name{CalcUtils}
 \alias{CalcUtils}
-\title{Calculate the average utility for each alcohol/tobacco-related condition}
+\title{Calculate the average utility for each alcohol/tobacco-related condition \lifecycle{maturing}}
 \usage{
 CalcUtils(data, lkup = qalyr::lkup)
 }
 \arguments{
-\item{data}{}
+\item{data}{Data.table - the merged HODaR inpatient and survey data}
 
-\item{lkup}{table of conditions and respective ICD10 codes}
+\item{lkup}{Data table of conditions and respective ICD10 codes}
 }
 \value{
-Returns a summary table of condition-specific utilities, including mean, standard deviation, and number of rows (to check for sample size).
+Returns a summary data table of condition-specific utilities,
+including mean, standard deviation, and number of rows (to check for sample size).
 }
 \description{
-Due to small sample sizes, we first use this function to calculate the average utility for each condition, without any demographic stratification.
-Adj_cond_utils() is later used to stratify utilities by age and sex.
+Due to small sample sizes, we first use this function to calculate
+the average utility for each condition, without any demographic stratification.
+\code{Adj_cond_utils()} is later used to stratify utilities by age and sex.
 }
 \examples{
 
 \dontrun{
 
-data <- merge_data(read_data(), lkup = qalyr::lkup)
+data <- qalyr::merge_data(
+  inpatient_data = qalyr::read_inpatient_data(),
+  survey_data = qalyr::read_survey_data(),
+  lkup = qalyr::lkup)
 
-condition_utilities <- CalcUtils(data = data, lkup = qalyr::lkup)
+condition_utilities <- qalyr::CalcUtils(data = data, lkup = qalyr::lkup)
 
 }
 

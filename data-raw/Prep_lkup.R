@@ -1,3 +1,13 @@
+
+
+
+
+# Code needs updating
+
+
+library(data.table)
+
+
 #Read in alc and tob ICD10 codes
 lkup <- read.csv("//tsclient/X/ScHARR/PR_Disease_Risk_TA/Disease_Lists/ICD_10_lookup.csv")
 setDT(lkup)

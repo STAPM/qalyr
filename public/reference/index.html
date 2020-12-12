@@ -8,6 +8,13 @@
 
 <title>Function reference • qalyr</title>
 
+<!-- favicons -->
+<link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png">
+<link rel="apple-touch-icon" type="image/png" sizes="180x180" href="../apple-touch-icon.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="120x120" href="../apple-touch-icon-120x120.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="76x76" href="../apple-touch-icon-76x76.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png" />
 
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
@@ -40,6 +47,7 @@
 
 
 <meta property="og:title" content="Function reference" />
+<meta property="og:image" content="https://stapm.gitlab.io/r-packages/qalyr/logo.png" />
 
 
 
@@ -71,36 +79,29 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">qalyr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.0</span>
       </span>
     </div>
 
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
-  <a href="../index.html">
-    <span class="fas fa fas fa-home fa-lg"></span>
-     
-  </a>
+  <a href="../articles/qalyr.html">Get started</a>
 </li>
 <li>
-  <a href="../reference/index.html">Reference</a>
+  <a href="../reference/index.html">Functions</a>
 </li>
-<li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-    Articles
-     
-    <span class="caret"></span>
-  </a>
-  <ul class="dropdown-menu" role="menu">
-    <li>
-      <a href="../articles/Condition-specific utility calculation.html">Estimating utilities from HODAR data</a>
-    </li>
-  </ul>
+<li>
+  <a href="../articles/index.html">Technical documentation</a>
 </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
-        
+        <li>
+  <a href="https://gitlab.com/stapm/r-packages/qalyr">
+    <span class="fab fa fab fa-gitlab fa-lg"></span>
+     
+  </a>
+</li>
       </ul>
       
     </div><!--/.nav-collapse -->
@@ -128,7 +129,7 @@
     <tbody>
       <tr>
         <th colspan="2">
-          <h2 id="section-all-functions" class="hasAnchor"><a href="#section-all-functions" class="anchor"></a>All functions</h2>
+          <h2 id="section-disease-specific-utilities" class="hasAnchor"><a href="#section-disease-specific-utilities" class="anchor"></a>Disease-specific utilities</h2>
           <p class="section-desc"></p>
         </th>
       </tr>
@@ -140,39 +141,27 @@
       <tr>
         
         <td>
-          <p><code><a href="Adj_cond_utils.html">Adj_cond_utils()</a></code> </p>
+          <p><code><a href="read_inpatient_data.html">read_inpatient_data()</a></code> </p>
         </td>
-        <td><p>Adjust the condition-specific utility for age and sex</p></td>
+        <td><p>Reads in inpatient HODaR data <a href='https://www.tidyverse.org/lifecycle/#maturing'><img src='figures/lifecycle-maturing.svg' alt='Maturing lifecycle'></a></p></td>
       </tr><tr>
         
         <td>
-          <p><code><a href="CalcUtils.html">CalcUtils()</a></code> </p>
+          <p><code><a href="read_survey_data.html">read_survey_data()</a></code> </p>
         </td>
-        <td><p>Calculate the average utility for each alcohol/tobacco-related condition</p></td>
+        <td><p>Reads in survey HODaR data <a href='https://www.tidyverse.org/lifecycle/#maturing'><img src='figures/lifecycle-maturing.svg' alt='Maturing lifecycle'></a></p></td>
       </tr><tr>
         
         <td>
-          <p><code><a href="Collapse_adm_survey.html">Collapse_adm_survey()</a></code> </p>
+          <p><code><a href="merge_data.html">merge_data()</a></code> </p>
         </td>
-        <td><p>Collapse admissions into surveys</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="HODAR_data.html">HODAR_data</a></code> </p>
-        </td>
-        <td><p>HODAR data with utility field</p></td>
+        <td><p>Merge the inpatient and survey HODaR data together <a href='https://www.tidyverse.org/lifecycle/#maturing'><img src='figures/lifecycle-maturing.svg' alt='Maturing lifecycle'></a></p></td>
       </tr><tr>
         
         <td>
           <p><code><a href="MeanAge_Sex.html">MeanAge_Sex()</a></code> </p>
         </td>
-        <td><p>Calculate mean age and proportion of males for each condition in HODAR</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="hello.html">hello()</a></code> </p>
-        </td>
-        <td><p>Hello, World!</p></td>
+        <td><p>Calculate mean age and proportion of males for each condition in HODAR <a href='https://www.tidyverse.org/lifecycle/#maturing'><img src='figures/lifecycle-maturing.svg' alt='Maturing lifecycle'></a></p></td>
       </tr><tr>
         
         <td>
@@ -182,15 +171,40 @@
       </tr><tr>
         
         <td>
-          <p><code><a href="merge_data.html">merge_data()</a></code> </p>
+          <p><code><a href="Collapse_adm_survey.html">Collapse_adm_survey()</a></code> </p>
         </td>
-        <td><p>Merge the inpatient and survey data together</p></td>
+        <td><p>Collapse admissions into surveys <a href='https://www.tidyverse.org/lifecycle/#maturing'><img src='figures/lifecycle-maturing.svg' alt='Maturing lifecycle'></a></p></td>
       </tr><tr>
         
         <td>
-          <p><code><a href="read_data.html">read_data()</a></code> </p>
+          <p><code><a href="CalcUtils.html">CalcUtils()</a></code> </p>
         </td>
-        <td><p>Reads in inpatient data</p></td>
+        <td><p>Calculate the average utility for each alcohol/tobacco-related condition <a href='https://www.tidyverse.org/lifecycle/#maturing'><img src='figures/lifecycle-maturing.svg' alt='Maturing lifecycle'></a></p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="Adj_cond_utils.html">Adj_cond_utils()</a></code> </p>
+        </td>
+        <td><p>Adjust the condition-specific utility for age and sex <a href='https://www.tidyverse.org/lifecycle/#maturing'><img src='figures/lifecycle-maturing.svg' alt='Maturing lifecycle'></a></p></td>
+      </tr>
+    </tbody><tbody>
+      <tr>
+        <th colspan="2">
+          <h2 id="section-general-population-utilities" class="hasAnchor"><a href="#section-general-population-utilities" class="anchor"></a>General population utilities</h2>
+          <p class="section-desc"></p>
+        </th>
+      </tr>
+      
+      
+    </tbody><tbody>
+      
+      
+      <tr>
+        
+        <td>
+          <p><code><a href="GenPopUtil.html">GenPopUtil</a></code> </p>
+        </td>
+        <td><p>General population utilities</p></td>
       </tr>
     </tbody>
     </table>
@@ -206,11 +220,11 @@
 
       <footer>
       <div class="copyright">
-  <p>Developed by Laura Webster.</p>
+  <p>Developed by <a href='https://www.sheffield.ac.uk/scharr/sections/heds/staff/gillespie_d'>Duncan Gillespie</a>, Laura Webster, <a href='https://www.sheffield.ac.uk/scharr/sections/heds/staff/angus_c'>Colin Angus</a>, <a href='https://www.sheffield.ac.uk/scharr/sections/heds/staff/brennan_a'>Alan Brennan</a>.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

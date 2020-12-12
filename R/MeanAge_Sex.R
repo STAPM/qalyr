@@ -1,17 +1,18 @@
 
-
-#' Calculate mean age and proportion of males for each condition in HODAR
+#' Calculate mean age and proportion of males for each condition in HODAR \lifecycle{maturing}
 #'
 #' In order to calculate the  average utility for each alcohol/tobacco-related condition
 #' by age and sex, we need to calculate the mean age and proportion of males for each condition
-#' in the HODAR data. This function uses the merged HoDAR and inpatient data to estimate the
+#' in the HODAR data. This function uses the merged HoDAR survey and inpatient data to estimate the
 #' average age and mean proportion of males admitted for each condition.
 #'
 #'
 #'
-#' @param data the merged HODAR and inpatient data
+#' @param data Data table - the merged HODAR and inpatient data.
+#' @param lkup Data table of conditions and respective ICD10 codes -
+#' default stored in package as \code{qalyr::lkup}.
 #'
-#' @param lkup table of conditions and respective ICD10 codes - default stored in package as qalyr::lkup
+#' @importFrom data.table := .N
 #'
 #' @return Returns a summary table of condition-specific mean ages and male proportions
 #'
@@ -21,9 +22,12 @@
 #'
 #' \dontrun{
 #'
-#' data <- merge_data(read_data())
+#' data <- qalyr::merge_data(
+#'   inpatient_data = qalyr::read_inpatient_data(),
+#'   survey_data = qalyr::read_survey_data(),
+#'   lkup = qalyr::lkup)
 #'
-#' age_sex_condition <- MeanAge_Sex(data = data, lkup = qalyr::lkup)
+#' age_sex_condition <- qalyr::MeanAge_Sex(data = data, lkup = qalyr::lkup)
 #'
 #' }
 #'
@@ -43,7 +47,7 @@ MeanAge_Sex <- function(
 
     conditionHeader <- conditions[x]
 
-    s <- data[get(conditionHeader) > 0, .(Size = .N)]
+    s <- data[get(conditionHeader) > 0, list(Size = .N)]
 
     return(as.numeric(s))
   }
@@ -55,7 +59,7 @@ MeanAge_Sex <- function(
 
     conditionHeader <- conditions[x]
 
-    a <- data[get(conditionHeader) > 0, .(av_age = mean(Age, na.rm = T))]
+    a <- data[get(conditionHeader) > 0, list(av_age = mean(Age, na.rm = T))]
 
     return(as.numeric(a))
   }
@@ -67,7 +71,7 @@ MeanAge_Sex <- function(
 
     conditionHeader <- conditions[x]
 
-        m <- data[get(conditionHeader) > 0, .(prop_male = sum(gender == 0)/.N)]
+        m <- data[get(conditionHeader) > 0, list(prop_male = sum(gender == 0)/.N)]
 
     return(as.numeric(m))
   }
@@ -153,8 +157,7 @@ MeanAge_Sex <- function(
 
   Age_Sex_data <- Age_Sex_data[ , Size := NULL]
 
-  # Embed the data within the package
-  usethis::use_data(Age_Sex_data, overwrite = TRUE)
+
 
   return(Age_Sex_data)
 }

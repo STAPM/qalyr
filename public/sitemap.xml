@@ -1,36 +1,42 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://stapm.gitlab.io/qalyr/index.html</loc>
+    <loc>https://stapm.gitlab.io/r-packages/qalyr/index.html</loc>
   </url>
   <url>
-    <loc>https://stapm.gitlab.io/qalyr/reference/Adj_cond_utils.html</loc>
+    <loc>https://stapm.gitlab.io/r-packages/qalyr/reference/Adj_cond_utils.html</loc>
   </url>
   <url>
-    <loc>https://stapm.gitlab.io/qalyr/reference/CalcUtils.html</loc>
+    <loc>https://stapm.gitlab.io/r-packages/qalyr/reference/CalcUtils.html</loc>
   </url>
   <url>
-    <loc>https://stapm.gitlab.io/qalyr/reference/Collapse_adm_survey.html</loc>
+    <loc>https://stapm.gitlab.io/r-packages/qalyr/reference/Collapse_adm_survey.html</loc>
   </url>
   <url>
-    <loc>https://stapm.gitlab.io/qalyr/reference/HODAR_data.html</loc>
+    <loc>https://stapm.gitlab.io/r-packages/qalyr/reference/GenPopUtil.html</loc>
   </url>
   <url>
-    <loc>https://stapm.gitlab.io/qalyr/reference/MeanAge_Sex.html</loc>
+    <loc>https://stapm.gitlab.io/r-packages/qalyr/reference/MeanAge_Sex.html</loc>
   </url>
   <url>
-    <loc>https://stapm.gitlab.io/qalyr/reference/hello.html</loc>
+    <loc>https://stapm.gitlab.io/r-packages/qalyr/reference/lkup.html</loc>
   </url>
   <url>
-    <loc>https://stapm.gitlab.io/qalyr/reference/lkup.html</loc>
+    <loc>https://stapm.gitlab.io/r-packages/qalyr/reference/merge_data.html</loc>
   </url>
   <url>
-    <loc>https://stapm.gitlab.io/qalyr/reference/merge_data.html</loc>
+    <loc>https://stapm.gitlab.io/r-packages/qalyr/reference/qalyr-package.html</loc>
   </url>
   <url>
-    <loc>https://stapm.gitlab.io/qalyr/reference/read_data.html</loc>
+    <loc>https://stapm.gitlab.io/r-packages/qalyr/reference/read_inpatient_data.html</loc>
   </url>
   <url>
-    <loc>https://stapm.gitlab.io/qalyr/articles/Condition-specific utility calculation.html</loc>
+    <loc>https://stapm.gitlab.io/r-packages/qalyr/reference/read_survey_data.html</loc>
+  </url>
+  <url>
+    <loc>https://stapm.gitlab.io/r-packages/qalyr/articles/Condition_specific_utility_calculation.html</loc>
+  </url>
+  <url>
+    <loc>https://stapm.gitlab.io/r-packages/qalyr/articles/qalyr.html</loc>
   </url>
 </urlset>

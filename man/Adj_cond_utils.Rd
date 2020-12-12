@@ -2,21 +2,23 @@
 % Please edit documentation in R/Adj_cond_utils.R
 \name{Adj_cond_utils}
 \alias{Adj_cond_utils}
-\title{Adjust the condition-specific utility for age and sex}
+\title{Adjust the condition-specific utility for age and sex \lifecycle{maturing}}
 \usage{
 Adj_cond_utils(
-  Age_Sex_data = qalyr::Age_Sex_data,
-  Condition_utilities = qalyr::util_data,
+  Age_Sex_data,
+  Condition_utilities,
   GenPopUtil = qalyr::GenPopUtil
 )
 }
 \arguments{
-\item{Age_Sex_data}{mean age and proportion of males for in condition in data. Calculated using function *MeanAge_Sex()* - data stored in package
-as qalyr::Age_Sex_data.}
+\item{Age_Sex_data}{mean age and proportion of males for in condition in data.
+Calculated using function \code{MeanAge_Sex()}.}
 
-\item{Condition_utilities}{condition-specific utilities. Calculated using function *CalcUtils()* - default stored in package as qalyr::util_data.}
+\item{Condition_utilities}{condition-specific utilities.
+Calculated using function \code{CalcUtils()}.}
 
-\item{GenPopUtil}{table of general population utilities by age and sex. Default stored in package as qalyr::GenPopUtil}
+\item{GenPopUtil}{table of general population utilities by age and sex.
+Default stored in package as \code{qalyr::GenPopUtil}.}
 }
 \value{
 Returns a summary table of condition-specific utilities.
@@ -24,17 +26,35 @@ Returns a summary table of condition-specific utilities.
 \description{
 Calculates an average utility for each alcohol/tobacco-related condition by age and sex.
 Need to calculate the mean age and proportion of males for each condition in the HODAR data.
-Need to calculate the matched age-sex specific general population utility using the Ara
-and Brazier 2011 formula. Dividing these will give the multiplier by which to adjust the
+Need to calculate the matched age-sex specific general population utility using the \insertCite{Ara2010;textual}{qalyr} formula. Dividing these will give the multiplier by which to adjust the
 general population utility score by, to get age-adjusted condition-specific utilities.
 }
 \examples{
 
 \dontrun{
 
+library(qalyr)
 
-age_sex_condition_utilities <- Adj_cond_utils(Age_Sex_data = qalyr::Age_Sex_data, Condition_utilities = qalyr::util_data, GenPopUtil = qalyr::GenPopUtil)
+# Merge inpatient data and HODAR data and collapse to survey level data
+data <- qalyr::merge_data(
+  inpatient_data = qalyr::read_inpatient_data(),
+  survey_data = qalyr::read_survey_data(),
+  lkup = qalyr::lkup)
+
+# Condition-specific utilities
+cond_utils <- qalyr::CalcUtils(data, lkup = qalyr::lkup)
+
+# Mean age and proportion of males
+mean_age_sex <- qalyr::MeanAge_Sex(data, lkup = qalyr::lkup)
+
+# age-sex-condition-specific utilities
+adj_cond_utils <- qalyr::Adj_cond_utils(Age_Sex_data = mean_age_sex,
+                                        Condition_utilities = cond_utils,
+                                        GenPopUtil = qalyr::GenPopUtil)
 
 }
 
+}
+\references{
+\insertRef{Ara2010}{qalyr}
 }

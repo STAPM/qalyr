@@ -1,13 +1,13 @@
 
-
-#' Collapse admissions into surveys
+#' Collapse admissions into surveys \lifecycle{maturing}
 #'
-#' This function is used within the function *merge_data()* to collapse the data to assign a survey to each admission. Multiple admissions can be allocated
+#' This function is used within the function \code{merge_data()}
+#'  to collapse the data to assign a survey to each admission. Multiple admissions can be allocated
 #' to the same survey, but the admission has to have been in the year before the survey was sent.
 #'
+#' @param data Data table - merged admission level inpatient data with survey data
 #'
-#'
-#' @param data merged admission level inpatient data with survey data
+#' @importFrom data.table := .SD
 #'
 #' @return Returns the data at survey level, with a column for each condition indicating
 #' whether the utility from the survey should be allocated to that condition.
@@ -18,7 +18,7 @@
 #'
 #' \dontrun{
 #'
-#' inpatient_data <- read_data()
+#' inpatient_data <- read_inpatient_data()
 #'
 #' Collapse_adm_survey(inpatient_data)
 #'
@@ -31,15 +31,16 @@ Collapse_adm_survey <- function(
 
   # Retain only unique surveys. This will match back up with data
   keep_unique_surveys <- unique(data, by = c("Patient_Number", "Date_Survey_Sent", "Date_Survey_Returned"))
-  keep_unique_surveys <- keep_unique_surveys[ , . (Utility_value, Age, gender)]
+  keep_unique_surveys <- keep_unique_surveys[ , list(Utility_value, Age, gender)]
 
   # Remove columns that cannot be added
   keep <- data[ , c("PS_Admit", "PS_Disch", "Smoke", "Alcohol", "Utility_value", "Age", "gender") := NULL]
 
   # Collapse admissions into surveys. Add rows together.
-  surv_data <- keep[, lapply(.SD, base::sum, na.rm = TRUE), by = c("Patient_Number", "Date_Survey_Sent", "Date_Survey_Returned")]
-  data <- cbind(surv_data, keep_unique_surveys)
+  surv_data <- keep[, lapply(.SD, base::sum, na.rm = TRUE),
+                    by = c("Patient_Number", "Date_Survey_Sent", "Date_Survey_Returned")]
 
+  data <- cbind(surv_data, keep_unique_surveys)
 
 
   return(data)

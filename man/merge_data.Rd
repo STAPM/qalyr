@@ -2,27 +2,35 @@
 % Please edit documentation in R/merge_data.R
 \name{merge_data}
 \alias{merge_data}
-\title{Merge the inpatient and survey data together}
+\title{Merge the inpatient and survey HODaR data together \lifecycle{maturing}}
 \usage{
-merge_data(inpatient_data, lkup)
+merge_data(inpatient_data, survey_data, lkup)
 }
 \arguments{
-\item{inpatient_data}{inpatient data containing data on the patient's admission and discharge dates, and diagnosis codes.}
+\item{inpatient_data}{Data table - inpatient data containing data on the patient's
+admission and discharge dates, and diagnosis codes.}
 
-\item{lkup}{lkup table in the format (icd_code, Description) (default stored in package as qalyr::lkup - this contains all
+\item{survey_data}{Data table - the HODaR survey data containing EQ5D}
+
+\item{lkup}{Data table - lookup table in the format (icd_code, Description)
+(default stored in package as qalyr::lkup - this contains all
 alcohol and tobacco related conditions).}
 }
 \value{
-Returns a table with the survey data and inpatient data merged, with all admissions allocated to a survey,
+Returns a table with the survey data and inpatient data merged,
+with all admissions allocated to a survey,
 ready for calculating condition-specific utilities.
 }
 \description{
-As the inpatient data and survey data were provided separately, this function merges the two datasets, matching the survey information
+As the inpatient data and survey data were provided separately,
+this function merges the two datasets, matching the survey information
 to the inpatient data.
 }
 \details{
-This function follows a set of rules to match the survey data to the inpatient data. The only field available to match the two datasets
-is the Patient ID variable 'Patient_Number'. We have the date of admission and discharge in the inpatient data, and the date the survey
+This function follows a set of rules to match the survey data to the inpatient data.
+The only field available to match the two datasets
+is the Patient ID variable 'Patient_Number'.
+We have the date of admission and discharge in the inpatient data, and the date the survey
 was sent and returned in the survey data.
 }
 \examples{
@@ -31,7 +39,7 @@ was sent and returned in the survey data.
 
 inpatient_data <- read_data()
 
-merge_data(inpatient_data, lkup = qalyr::lkup)
+merge_data(inpatient_data, survey_data, lkup = qalyr::lkup)
 
 }
 

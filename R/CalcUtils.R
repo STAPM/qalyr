@@ -1,17 +1,18 @@
 
-
-#' Calculate the average utility for each alcohol/tobacco-related condition
+#' Calculate the average utility for each alcohol/tobacco-related condition \lifecycle{maturing}
 #'
-#' Due to small sample sizes, we first use this function to calculate the average utility for each condition, without any demographic stratification.
-#' Adj_cond_utils() is later used to stratify utilities by age and sex.
+#' Due to small sample sizes, we first use this function to calculate
+#' the average utility for each condition, without any demographic stratification.
+#' \code{Adj_cond_utils()} is later used to stratify utilities by age and sex.
 #'
 #'
+#' @param data Data.table - the merged HODaR inpatient and survey data
+#' @param lkup Data table of conditions and respective ICD10 codes
 #'
-#' @param data
+#' @importFrom data.table data.table :=
 #'
-#' @param lkup table of conditions and respective ICD10 codes
-#'
-#' @return Returns a summary table of condition-specific utilities, including mean, standard deviation, and number of rows (to check for sample size).
+#' @return Returns a summary data table of condition-specific utilities,
+#' including mean, standard deviation, and number of rows (to check for sample size).
 #'
 #' @export
 #'
@@ -19,13 +20,15 @@
 #'
 #' \dontrun{
 #'
-#' data <- merge_data(read_data(), lkup = qalyr::lkup)
+#' data <- qalyr::merge_data(
+#'   inpatient_data = qalyr::read_inpatient_data(),
+#'   survey_data = qalyr::read_survey_data(),
+#'   lkup = qalyr::lkup)
 #'
-#' condition_utilities <- CalcUtils(data = data, lkup = qalyr::lkup)
+#' condition_utilities <- qalyr::CalcUtils(data = data, lkup = qalyr::lkup)
 #'
 #' }
 #'
-
 CalcUtils <- function(
   data,
   lkup = qalyr::lkup
@@ -41,7 +44,7 @@ CalcUtils <- function(
 
     conditionHeader <- conditions[x]
 
-    d <- as.numeric(data[get(conditionHeader) > 0, .(av = mean(Utility_value, na.rm = T))])
+    d <- as.numeric(data[get(conditionHeader) > 0, list(av = mean(Utility_value, na.rm = T))])
 
     #sd <- as.numeric(data[get(conditionHeader) > 0, .(sd = sd(Utility_value, na.rm = T))])
 
@@ -57,7 +60,8 @@ CalcUtils <- function(
     conditionHeader <- conditions[x]
 
     #se <- as.numeric(data[get(conditionHeader) > 0, .(se = se(Utility_value, na.rm = T))])
-    se <- as.numeric(data[get(conditionHeader) > 0, .(se = sqrt(var(Utility_value, na.rm = T)/length(Utility_value)))])
+    se <- as.numeric(data[get(conditionHeader) > 0,
+                          list(se = sqrt(var(Utility_value, na.rm = T) / length(Utility_value)))])
 
     return(se)
   }
@@ -68,7 +72,7 @@ CalcUtils <- function(
 
     conditionHeader <- conditions[x]
 
-    number_surveys <- as.numeric(data[get(conditionHeader) > 0, .(number_surveys = .N)])
+    number_surveys <- as.numeric(data[get(conditionHeader) > 0, list(number_surveys = .N)])
 
     return(number_surveys)
   }
@@ -146,10 +150,6 @@ CalcUtils <- function(
   util_data <- util_data[ , se := round(se, 2)]
   util_data <- util_data[ , n := round(n, 2)]
 
-
-
-  # Embed the data within the package
-  usethis::use_data(util_data, overwrite = TRUE)
 
   return(util_data)
 }

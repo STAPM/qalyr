@@ -1,10 +1,10 @@
 destination: public
 home:
-  title: Health State Utility Value Estimation
+  title: Tobacco- and Alcohol-Related Health State Utility Value Estimation
   links:
   - text: STAPM webpage
     href: https://stapm.gitlab.io/
-url: https://stapm.gitlab.io/qalyr
+url: https://stapm.gitlab.io/r-packages/qalyr
 template:
   params:
     bootswatch: flatly
@@ -15,14 +15,50 @@ authors:
     href: https://www.sheffield.ac.uk/scharr/sections/heds/staff/angus_c
   Alan Brennan:
     href: https://www.sheffield.ac.uk/scharr/sections/heds/staff/brennan_a
-    
 
-  
-  
-  
-  
-  
-  
-  
-  
-  
+navbar:
+  structure:
+    left:  [home, intro, reference, articles]
+    right: [gitlab]
+  components:
+    home: ~
+    intro:
+     text: Get started
+     href: articles/qalyr.html
+    reference:
+     text: Functions
+     href: reference/index.html
+    articles:
+     text: Technical documentation
+     href: articles/index.html
+    gitlab:
+      icon: fab fa-gitlab fa-lg
+      href: https://gitlab.com/stapm/r-packages/qalyr
+
+
+articles:
+- title: Health state utility value estimation
+  contents:
+  - Condition_specific_utility_calculation
+
+reference:
+- title: Disease-specific utilities
+  contents:
+  - read_inpatient_data
+  - read_survey_data
+  - merge_data
+  - MeanAge_Sex
+  - lkup
+  - Collapse_adm_survey
+  - CalcUtils
+  - Adj_cond_utils
+
+- title: General population utilities
+  contents:
+  - GenPopUtil
+
+
+
+
+
+

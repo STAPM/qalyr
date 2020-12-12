@@ -2,26 +2,27 @@
 % Please edit documentation in R/Collapse_adm_survey.R
 \name{Collapse_adm_survey}
 \alias{Collapse_adm_survey}
-\title{Collapse admissions into surveys}
+\title{Collapse admissions into surveys \lifecycle{maturing}}
 \usage{
 Collapse_adm_survey(data)
 }
 \arguments{
-\item{data}{merged admission level inpatient data with survey data}
+\item{data}{Data table - merged admission level inpatient data with survey data}
 }
 \value{
 Returns the data at survey level, with a column for each condition indicating
 whether the utility from the survey should be allocated to that condition.
 }
 \description{
-This function is used within the function *merge_data()* to collapse the data to assign a survey to each admission. Multiple admissions can be allocated
+This function is used within the function \code{merge_data()}
+ to collapse the data to assign a survey to each admission. Multiple admissions can be allocated
 to the same survey, but the admission has to have been in the year before the survey was sent.
 }
 \examples{
 
 \dontrun{
 
-inpatient_data <- read_data()
+inpatient_data <- read_inpatient_data()
 
 Collapse_adm_survey(inpatient_data)
 

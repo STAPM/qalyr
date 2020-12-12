@@ -1,0 +1,61 @@
+---
+title: "Get started"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Get started}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+## Workflows
+
+To illustrate the use of the `qalyr` functions for different tasks, we have created example workflows. You can use these examples to help understand how the code works, run them to generate model inputs, or use them as a starting point for the development of a new project.    
+
+At the moment, these workflows are accessible only to the project team. To access them, you will need to be added to the STAPM Gitlab organisation.  
+
+The workflows are listed below:  
+
+- [Estimation of health state utility values](https://gitlab.com/stapm/model-inputs/utility_value_estimation)  
+
+
+## Basic functionality
+
+### Load and merge data 
+
+The data is stored in `D:/QALYs/Raw/`. The following code will read, clean, filter, and combine the data. 
+
+```{r readdata, eval = F}
+
+library(qalyr)
+
+# Merge inpatient data and HODAR data and collapse to survey level data 
+data <- qalyr::merge_data(
+  inpatient_data = qalyr::read_inpatient_data(),
+  survey_data = qalyr::read_survey_data(),
+  lkup = qalyr::lkup)
+
+# With this data we can calculate the condition-specific HSUVs, and the mean age and proportion of 
+# males by condition. These are both used as inputs to calculate the age-sex-condition-specific HSUVs 
+
+# Condition-specific utilities
+cond_utils <- qalyr::CalcUtils(data, lkup = qalyr::lkup)
+
+# Mean age and proportion of males 
+mean_age_sex <- qalyr::MeanAge_Sex(data, lkup = qalyr::lkup)
+
+# age-sex-condition-specific utilities 
+adj_cond_utils <- qalyr::Adj_cond_utils(Age_Sex_data = mean_age_sex,
+                                 Condition_utilities = cond_utils,
+                                 GenPopUtil = qalyr::GenPopUtil)
+
+
+```
+
+

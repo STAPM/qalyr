@@ -1,19 +1,29 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-# qalyr <img src="tools/qalyr_hex.png" align="right" style="padding-left:10px;background-color:white;" width="100" height="100" />
+# Tobacco- and alcohol-related health state utility values <img src="logo.png" align="right" style="padding-left:10px;background-color:white;" width="100" height="100" />
+
+<!-- badges: start -->
 
 [![Project Status: Active – The project has reached a stable, usable
 state and is being actively
 developed.](https://www.repostatus.org/badges/latest/active.svg)](https://www.repostatus.org/#active)
-
-**DRAFT WORKING VERSION** - The package is usable but there are still
-bugs and further developments that are being worked through i.e. some
-code and documentation is still incomplete or in need of being refined.
-The code and documentation are still undergoing internal review by the
-analyst team.
+[![Lifecycle:
+maturing](https://img.shields.io/badge/lifecycle-maturing-blue.svg)](https://www.tidyverse.org/lifecycle/#maturing)
+<!-- badges: end -->
 
 ## Motivation
+
+The motivation for `qalyr` was to standardised the way that health state
+utility values were prepared for input to our decision-analytic models.
+Health state utility values associated with tobacco- and alcohol-related
+disease diagnosis codes are derived from the HODaR data (Currie et al.
+[2005](#ref-currie2005routine)), and general population utility values
+from the Health Survey for England (Ara and Brazier
+[2010](#ref-Ara2010)). The suite of functions within `qalyr` wrangle the
+data into the correct format and then calculate the health state utility
+values. To do so, we use the `eq5d` R package (Morton and Nijjar
+[2020](#ref-eq5dpackage)).
 
 `qalyr` was created as part of a programme of work on the health
 economics of tobacco and alcohol at the School of Health and Related
@@ -24,32 +34,23 @@ the impacts of tobacco and alcohol policies, and investigate the
 consequences of clustering and interactions between tobacco and alcohol
 consumption behaviours.
 
-The original motivation for `qalyr` was to standardised the way that
-health state utility values were prepared for input to our
-decision-analytic models. *describe data*. The suite of functions within
-`qalyr` *describe functionality*.
-
-## Usage
-
-`qalyr` is a package for estimating health state utility values.
-
 ## Installation
 
 `qalyr` is currently available only to members of the project team (but
 please contact Duncan Gillespie <duncan.gillespie@sheffield.ac.uk> to
-discuss). To access you need to [**sign-up for a GitLab
-account**](https://gitlab.com/). You will then need to be added to the
+discuss). To access you need to [*sign-up for a GitLab
+account*](https://gitlab.com/). You will then need to be added to the
 STAPM project team to gain access.
 
-Once that is sorted, you can **install the development version of
-`qalyr`** from GitLab with:
+Once that is sorted, you can install the latest version or a specified
+version of `qalyr` from GitLab with:
 
 ``` r
 #install.packages("devtools")
 #install.packages("getPass")
 
 devtools::install_git(
-  "https://gitlab.com/stapm/qalyr.git", 
+  "https://gitlab.com/stapm/r-packages/qalyr.git", 
   credentials = git2r::cred_user_pass("uname", getPass::getPass()),
   ref = "x.x.x",
   build_vignettes = TRUE
@@ -66,6 +67,7 @@ that the code within `qalyr` uses the `data.table::data.table()` syntax.
 ``` r
 # Load the package
 library(qalyr)
+library(eq5d)
 
 # Other useful packages
 library(dplyr) # for data manipulation and summary
@@ -77,18 +79,40 @@ library(ggplot2) # for plotting
 
 Please cite the latest version of the package using:  
 “Duncan Gillespie, Laura Webster, Colin Angus and Alan Brennan (2020).
-qalyr: Health State Utility Value Estimation. R package version x.x.x.
-<https://stapm.gitlab.io/qalyr>.”
+qalyr: Tobacco- and Alcohol-Related Health State Utility Value
+Estimation. R package version x.x.x.
+<https://stapm.gitlab.io/r-packages/qalyr>.”
 
-## Getting started
+## References
 
-*how to access data*
+<div id="refs" class="references hanging-indent">
 
-In ScHARR, all data is stored and processed according to the [ScHARR
-Information Governance
-Policy](https://www.sheffield.ac.uk/scharr/research/igov/policy00).
-*where data is stored*
+<div id="ref-Ara2010">
 
-No individual-level data is included within this package.
+Ara, Roberta, and John E Brazier. 2010. “Populating an Economic Model
+with Health State Utility Values: Moving Toward Better Practice.” *Value
+in Health* 13 (5): 509–18.
+<https://doi.org/10.1111/j.1524-4733.2010.00700.x>.
 
-## Basic functionality
+</div>
+
+<div id="ref-currie2005routine">
+
+Currie, Craig J, Phil McEwan, John R Peters, Tunia C Patel, and Simon
+Dixon. 2005. “The Routine Collation of Health Outcomes Data from
+Hospital Treated Subjects in the Health Outcomes Data Repository
+(Hodar): Descriptive Analysis from the First 20,000 Subjects.” *Value in
+Health* 8 (5): 581–90.
+<https://doi.org/10.1111/j.1524-4733.2005.00046.x>.
+
+</div>
+
+<div id="ref-eq5dpackage">
+
+Morton, Fraser, and Jagtar Singh Nijjar. 2020. *eq5d: Methods for
+Calculating ’EQ-5D’ Utility Index Scores*.
+<https://CRAN.R-project.org/package=eq5d>.
+
+</div>
+
+</div>
