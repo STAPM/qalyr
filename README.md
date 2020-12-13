@@ -15,14 +15,15 @@ maturing](https://img.shields.io/badge/lifecycle-maturing-blue.svg)](https://www
 ## Motivation
 
 The motivation for `qalyr` was to standardised the way that health state
-utility values were prepared for input to our decision-analytic models.
-Health state utility values associated with tobacco- and alcohol-related
-disease diagnosis codes are derived from the HODaR data (Currie et al.
-[2005](#ref-currie2005routine)), and general population utility values
-from the Health Survey for England (Ara and Brazier
+utility values for diseases related to tobacco and/or alcohol were
+prepared for input to our decision-analytic models. Health state utility
+values associated with tobacco- and alcohol-related disease diagnosis
+codes are derived from the Health Outcomes Data Repository (HODaR) data
+(Currie et al. [2005](#ref-currie2005routine)), and general population
+utility values from the Health Survey for England (Ara and Brazier
 [2010](#ref-Ara2010)). The suite of functions within `qalyr` wrangle the
 data into the correct format and then calculate the health state utility
-values. To do so, we use the `eq5d` R package (Morton and Nijjar
+values, for which we use the `eq5d` R package (Morton and Nijjar
 [2020](#ref-eq5dpackage)).
 
 `qalyr` was created as part of a programme of work on the health
@@ -34,16 +35,66 @@ the impacts of tobacco and alcohol policies, and investigate the
 consequences of clustering and interactions between tobacco and alcohol
 consumption behaviours.
 
+## HODaR data
+
+The following is a summary from Currie et
+al. ([2005](#ref-currie2005routine)).
+
+*HODaR supplements routine clinically coded data from the Cardiff and
+Vale NHS Hospitals Trust, UK, with survey data covering sociodemographic
+characteristics, QoL, utility, and resource use information. Data that
+constitutes HODaR were collated from a prospective survey of subjects
+treated as inpatients or outpatients. Details from the survey then need
+to be linked to existing routine hospital health data. All inpatients
+aged 18 years or older were surveyed. For inpatients, all subjects were
+surveyed 6 weeks postdischarge by postal survey with a “freepost” return
+envelope. For outpatients, all patients attending a selected clinic were
+handed a survey pack by the clinic receptionist when they attend.*
+
+We were provided with two datasets in the form of inpatient data and
+survey data. The inpatient data includes a pseudo-anonymised patient
+identification number and information on the type of admission including
+the dates of admission and diagnostic and operation codes. The inpatient
+data is provided at episode level and was filtered such that we were
+only provided with episodes that had an alcohol or tobacco-related
+ICD-10 code in one of the diagnostic positions remained.
+
+## Information governance
+
+The HODaR data are risk-bearing because they constitute patient-level
+hospital records and survey data. Our data storage and processing takes
+place on a restricted user-access CiCS virtual machine (VM). This is a
+secure virtual computing environment on a centrally managed university
+server. The VM is called `heta_study`. We follow [ScHARR’s Information
+Governance
+Policy](https://www.sheffield.ac.uk/scharr/research/igov/policy00).
+
+## Usage
+
+The `qalyr` package contains functions to calculate utilities using the
+EQ-5D, for specific diseases and for the general population.
+
+The **inputs** are the HODaR data and previously published estimates of
+general population utility values by Ara and Brazier
+([2010](#ref-Ara2010)), who analysed the Health Survey for England.
+
+The **processes** are performed by functions that:
+
+  - Read and link the HODaR survey and inpatient data  
+  - Calculate and adjust the disease specific and general population
+    utility values
+
+The **outputs** are lookup tables of utility values ready for use in our
+modelling.
+
 ## Installation
 
 `qalyr` is currently available only to members of the project team (but
 please contact Duncan Gillespie <duncan.gillespie@sheffield.ac.uk> to
-discuss). To access you need to [*sign-up for a GitLab
-account*](https://gitlab.com/). You will then need to be added to the
-STAPM project team to gain access.
-
-Once that is sorted, you can install the latest version or a specified
-version of `qalyr` from GitLab with:
+discuss). To access you need to [sign-up for a GitLab
+account](https://gitlab.com/). You will then need to be added to the
+STAPM project team to gain access. Once that is sorted, you can install
+the latest version or a specified version of `qalyr` from GitLab with:
 
 ``` r
 #install.packages("devtools")

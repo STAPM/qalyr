@@ -82,14 +82,38 @@
 <div id="motivation" class="section level2">
 <h2 class="hasAnchor">
 <a href="#motivation" class="anchor"></a>Motivation</h2>
-<p>The motivation for <code>qalyr</code> was to standardised the way that health state utility values were prepared for input to our decision-analytic models. Health state utility values associated with tobacco- and alcohol-related disease diagnosis codes are derived from the HODaR data (Currie et al. <a href="#ref-currie2005routine">2005</a>), and general population utility values from the Health Survey for England (Ara and Brazier <a href="#ref-Ara2010">2010</a>). The suite of functions within <code>qalyr</code> wrangle the data into the correct format and then calculate the health state utility values. To do so, we use the <code>eq5d</code> R package (Morton and Nijjar <a href="#ref-eq5dpackage">2020</a>).</p>
+<p>The motivation for <code>qalyr</code> was to standardised the way that health state utility values for diseases related to tobacco and/or alcohol were prepared for input to our decision-analytic models. Health state utility values associated with tobacco- and alcohol-related disease diagnosis codes are derived from the Health Outcomes Data Repository (HODaR) data (Currie et al. <a href="#ref-currie2005routine">2005</a>), and general population utility values from the Health Survey for England (Ara and Brazier <a href="#ref-Ara2010">2010</a>). The suite of functions within <code>qalyr</code> wrangle the data into the correct format and then calculate the health state utility values, for which we use the <code>eq5d</code> R package (Morton and Nijjar <a href="#ref-eq5dpackage">2020</a>).</p>
 <p><code>qalyr</code> was created as part of a programme of work on the health economics of tobacco and alcohol at the School of Health and Related Research (ScHARR), The University of Sheffield. This programme is based around the construction of the Sheffield Tobacco and Alcohol Policy Model (STAPM), which aims to use comparable methodologies to evaluate the impacts of tobacco and alcohol policies, and investigate the consequences of clustering and interactions between tobacco and alcohol consumption behaviours.</p>
+</div>
+<div id="hodar-data" class="section level2">
+<h2 class="hasAnchor">
+<a href="#hodar-data" class="anchor"></a>HODaR data</h2>
+<p>The following is a summary from Currie et al. (<a href="#ref-currie2005routine">2005</a>).</p>
+<p><em>HODaR supplements routine clinically coded data from the Cardiff and Vale NHS Hospitals Trust, UK, with survey data covering sociodemographic characteristics, QoL, utility, and resource use information. Data that constitutes HODaR were collated from a prospective survey of subjects treated as inpatients or outpatients. Details from the survey then need to be linked to existing routine hospital health data. All inpatients aged 18 years or older were surveyed. For inpatients, all subjects were surveyed 6 weeks postdischarge by postal survey with a “freepost” return envelope. For outpatients, all patients attending a selected clinic were handed a survey pack by the clinic receptionist when they attend.</em></p>
+<p>We were provided with two datasets in the form of inpatient data and survey data. The inpatient data includes a pseudo-anonymised patient identification number and information on the type of admission including the dates of admission and diagnostic and operation codes. The inpatient data is provided at episode level and was filtered such that we were only provided with episodes that had an alcohol or tobacco-related ICD-10 code in one of the diagnostic positions remained.</p>
+</div>
+<div id="information-governance" class="section level2">
+<h2 class="hasAnchor">
+<a href="#information-governance" class="anchor"></a>Information governance</h2>
+<p>The HODaR data are risk-bearing because they constitute patient-level hospital records and survey data. Our data storage and processing takes place on a restricted user-access CiCS virtual machine (VM). This is a secure virtual computing environment on a centrally managed university server. The VM is called <code>heta_study</code>. We follow <a href="https://www.sheffield.ac.uk/scharr/research/igov/policy00">ScHARR’s Information Governance Policy</a>.</p>
+</div>
+<div id="usage" class="section level2">
+<h2 class="hasAnchor">
+<a href="#usage" class="anchor"></a>Usage</h2>
+<p>The <code>qalyr</code> package contains functions to calculate utilities using the EQ-5D, for specific diseases and for the general population.</p>
+<p>The <strong>inputs</strong> are the HODaR data and previously published estimates of general population utility values by Ara and Brazier (<a href="#ref-Ara2010">2010</a>), who analysed the Health Survey for England.</p>
+<p>The <strong>processes</strong> are performed by functions that:</p>
+<ul>
+<li>Read and link the HODaR survey and inpatient data<br>
+</li>
+<li>Calculate and adjust the disease specific and general population utility values</li>
+</ul>
+<p>The <strong>outputs</strong> are lookup tables of utility values ready for use in our modelling.</p>
 </div>
 <div id="installation" class="section level2">
 <h2 class="hasAnchor">
 <a href="#installation" class="anchor"></a>Installation</h2>
-<p><code>qalyr</code> is currently available only to members of the project team (but please contact Duncan Gillespie <a href="mailto:duncan.gillespie@sheffield.ac.uk" class="email">duncan.gillespie@sheffield.ac.uk</a> to discuss). To access you need to <a href="https://gitlab.com/"><em>sign-up for a GitLab account</em></a>. You will then need to be added to the STAPM project team to gain access.</p>
-<p>Once that is sorted, you can install the latest version or a specified version of <code>qalyr</code> from GitLab with:</p>
+<p><code>qalyr</code> is currently available only to members of the project team (but please contact Duncan Gillespie <a href="mailto:duncan.gillespie@sheffield.ac.uk" class="email">duncan.gillespie@sheffield.ac.uk</a> to discuss). To access you need to <a href="https://gitlab.com/">sign-up for a GitLab account</a>. You will then need to be added to the STAPM project team to gain access. Once that is sorted, you can install the latest version or a specified version of <code>qalyr</code> from GitLab with:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co">#install.packages("devtools")</span>
 <span class="co">#install.packages("getPass")</span>

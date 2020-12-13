@@ -65,10 +65,13 @@ A utility value is extracted for each condition based on ICD-10 codes. While uti
 
 For conditions where no utility data was available, utilities were assumed to be similar to close conditions. Thus, utilities for alcohol induced Cushing syndrome were assumed to be similar to alcoholic polyneuropathy. Utilities for alcoholic myopathy were assumed to be similar to utilities for alcohol cardiomyopathy. The utility for excessive blood level of alcohol was assumed to be similar to evidence of alcohol involvement determined by blood alcohol level. Utilities for drowning were assumed to be similar to transport injuries. Finally, utilities for other intentional injuries were assumed to be similar to other unintentional injuries. \href{https://www.nice.org.uk/guidance/ph24/evidence/economic-modelling-report-371533357}{SAPM model}.
 
+
 ## Objective two: General population utilities
 We use published estimates to inform our general population utilities. Baseline HSUVs profiles are assumed to be equal to the profile of HSUVs from the general population, adjusted for age and sex (i.e. all individuals irrespective of disease history). A formula was created using the Health Survey for England (n = 26,679). The code in data_raw `Prep_GenPopUtil.R` creates a new data table where all combinations of age and sex are present - this is embedded as package data. Age-sex-specific general population utilities are calculated using the formula from Ara and Brazier [-@Ara2010]:
 
 $$Baseline\ utility = 0.9508566 + 0.0212126\ sex - 0.0002587\ age - 0.0000332\ age^2  \ \ \ \ \ \ \ \ \ \ \ [1]$$
+
+
 ## Objective three: Adjust condition-specific utilities by age and sex 
 To calculate age-sex-condition specific HSUVs, we calculate a multiplier. The multiplier is a constant proportional effect that is applied to the age-sex-baseline HSUVs to calculate the age-sex-condition-specific HSUVs.   
 
@@ -82,6 +85,7 @@ Need to calculate the matched age-sex-specific general population utility using 
 The multiplier is simply the condition-specific HSUV ($U_c$) divided by the matched general population HSUV ($U_{MGP}$). This gives a constant. 
 
 $$ Multiplier_{c} = \frac{U_{c}}{U_{MGP}} $$
+
 ### Adjusted condition HSUVs
 To calculate the age-sex-condition-specific HSUVs is then simply a case of multiplying the age-sex-specific general population HSUVs ($U_{GP}(a,s)$) by the multiplier for each condition. 
 

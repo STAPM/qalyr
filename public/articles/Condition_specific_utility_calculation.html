@@ -124,7 +124,12 @@
 <h2 class="hasAnchor">
 <a href="#objective-two-general-population-utilities" class="anchor"></a>Objective two: General population utilities</h2>
 <p>We use published estimates to inform our general population utilities. Baseline HSUVs profiles are assumed to be equal to the profile of HSUVs from the general population, adjusted for age and sex (i.e. all individuals irrespective of disease history). A formula was created using the Health Survey for England (n = 26,679). The code in data_raw <code>Prep_GenPopUtil.R</code> creates a new data table where all combinations of age and sex are present - this is embedded as package data. Age-sex-specific general population utilities are calculated using the formula from Ara and Brazier <span class="citation">(<a href="#ref-Ara2010" role="doc-biblioref">2010</a>)</span>:</p>
-<p><span class="math display">\[Baseline\ utility = 0.9508566 + 0.0212126\ sex - 0.0002587\ age - 0.0000332\ age^2  \ \ \ \ \ \ \ \ \ \ \ [1]\]</span> ## Objective three: Adjust condition-specific utilities by age and sex To calculate age-sex-condition specific HSUVs, we calculate a multiplier. The multiplier is a constant proportional effect that is applied to the age-sex-baseline HSUVs to calculate the age-sex-condition-specific HSUVs.</p>
+<p><span class="math display">\[Baseline\ utility = 0.9508566 + 0.0212126\ sex - 0.0002587\ age - 0.0000332\ age^2  \ \ \ \ \ \ \ \ \ \ \ [1]\]</span></p>
+</div>
+<div id="objective-three-adjust-condition-specific-utilities-by-age-and-sex" class="section level2">
+<h2 class="hasAnchor">
+<a href="#objective-three-adjust-condition-specific-utilities-by-age-and-sex" class="anchor"></a>Objective three: Adjust condition-specific utilities by age and sex</h2>
+<p>To calculate age-sex-condition specific HSUVs, we calculate a multiplier. The multiplier is a constant proportional effect that is applied to the age-sex-baseline HSUVs to calculate the age-sex-condition-specific HSUVs.</p>
 <div id="calculate-multiplier" class="section level3">
 <h3 class="hasAnchor">
 <a href="#calculate-multiplier" class="anchor"></a>Calculate multiplier</h3>
@@ -132,7 +137,12 @@
 <p>In order to calculate age-sex-condition specific HSUVs, we need to calculate the mean age and proportion of males in the condition population. We do this by using the merged HODAR and inpatient data collapsed into survey level data. We average across the surveys for each condition to calculate the average age and proportion of males with that condition.</p>
 <p>Need to calculate the matched age-sex-specific general population utility using Eqn [1]. In the function <code><a href="../reference/Adj_cond_utils.html">Adj_cond_utils()</a></code>, we read in the general populatin utilities (<code><a href="../reference/GenPopUtil.html">qalyr::GenPopUtil</a></code>), the mean age and sex by condition, and the condition-specific utilities. Building on Age_Sex_data, we create a column for the matched general population HSUV using the mean age and proportion of males as inputs to Eqn [1]. The matched general population HSUV gives the general population HSUV for the same population as those who get sick from that condition. This is a way to match the two HSUVs to calculate the multiplier.</p>
 <p>The multiplier is simply the condition-specific HSUV (<span class="math inline">\(U_c\)</span>) divided by the matched general population HSUV (<span class="math inline">\(U_{MGP}\)</span>). This gives a constant.</p>
-<p><span class="math display">\[ Multiplier_{c} = \frac{U_{c}}{U_{MGP}} \]</span> ### Adjusted condition HSUVs To calculate the age-sex-condition-specific HSUVs is then simply a case of multiplying the age-sex-specific general population HSUVs (<span class="math inline">\(U_{GP}(a,s)\)</span>) by the multiplier for each condition.</p>
+<p><span class="math display">\[ Multiplier_{c} = \frac{U_{c}}{U_{MGP}} \]</span></p>
+</div>
+<div id="adjusted-condition-hsuvs" class="section level3">
+<h3 class="hasAnchor">
+<a href="#adjusted-condition-hsuvs" class="anchor"></a>Adjusted condition HSUVs</h3>
+<p>To calculate the age-sex-condition-specific HSUVs is then simply a case of multiplying the age-sex-specific general population HSUVs (<span class="math inline">\(U_{GP}(a,s)\)</span>) by the multiplier for each condition.</p>
 <p><span class="math display">\[ U_{c}(a,s) = U_{GP}(a,s) * Multiplier_{c}\]</span></p>
 </div>
 </div>
