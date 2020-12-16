@@ -2,7 +2,7 @@
 % Please edit documentation in R/read_inpatient_data.R
 \name{read_inpatient_data}
 \alias{read_inpatient_data}
-\title{Reads in inpatient HODaR data \lifecycle{maturing}}
+\title{Reads in inpatient HODaR data \lifecycle{stable}}
 \usage{
 read_inpatient_data(file = "D:/QALYs/Raw/inpatient_data.csv")
 }

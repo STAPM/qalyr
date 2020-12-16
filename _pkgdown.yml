@@ -37,7 +37,11 @@ navbar:
 
 
 articles:
-- title: Health state utility value estimation
+- title: Methodology reports
+  contents:
+  - qaly_estimation_report
+
+- title: Code vignettes
   contents:
   - Condition_specific_utility_calculation
 

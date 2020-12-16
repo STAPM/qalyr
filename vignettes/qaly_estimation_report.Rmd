@@ -112,10 +112,10 @@ knitr::write_bib(c(
 ```
  
 # Summary {-}
-This methodology report sets out how we calculate health state utility values for use in the STAPM modelling.
+This methodology report sets out how we calculate health state utility values for use in the STAPM modelling. It describes the data sources we use to calculate mean disease-specific utility values and general population utility values (that we take to represent the utility of not having a tobacco- or alcohol-related disease). We also explain how we deal with small sample sizes and how we stratify our utility value estimates by age and sex.    
 
-
-\newpage
+\bigskip
+\bigskip
 
 # Glossary of terms {-}
 
@@ -139,86 +139,116 @@ df_table1 %>%
 \newpage
 
 # Introduction
-
+In our STAPM modelling, one of the ways that we quantify health benefits is by quality adjusted life-years (QALYs). QALYs are calculated by summing the time spent in a health state weighted by the health-state utility value (HSUV) associated with the health state, thus incorporating both length of survival and HSUVs into a single metric [@Ara2010]. In the UK, there is a preference to quantify HSUVs with EQ-5D data using UK population weights when available [@NICEguide].    
 
 # Background
-We build on the methods to estimate health state utility values (HSUVs) that were first developed to support the Sheffield Alcohol Policy Model (SAPM) [@Brennan2009]. The previous SAPM work used the Health Outcomes Data Repository (HODaR) data to estimate a mean utility score for each disease. People in the "no tobacco- or alcohol-related conditions" health state were assumed to have the utility score of the general population. Thus, if a person lives a year of life with a tobacco- or alcohol-related disease, then that year of life is given a disease specific utility score, but if a person lives a year of life without any tobacco- or alcohol-related diseases, then that year of life is given the general population utility score.   
+We build on the methods to estimate HSUVs that were developed to support the Sheffield Alcohol Policy Model (SAPM) [@Brennan2009]. The previous SAPM work used the Health Outcomes Data Repository (HODaR) data to estimate a mean utility score for each disease [@currie2005routine]. People in the "no tobacco- or alcohol-related conditions" health state were assumed to have the utility score of the general population [@Ara2010;@ara2011using]. Thus, if a person within our modelled population lives a year of life with a tobacco- or alcohol-related disease, then that year of life is given a disease-specific utility score, but if a person lives a year of life without any tobacco- or alcohol-related diseases, then that year of life is given the general population utility score.   
 
 ## The Health Outcomes Data Repository (HODaR) data
-The Health Outcomes Data Repository (HODaR) data was collected as part of an initiative by the Cardiff Research Consortium to provide a source of data on patient socio-demographics, clinical factors, quality of life and healthcare resource use from the same patient group [@currie2005routine]. Relevant points of description from Currie et al. [-@currie2005routine] are:   
+The HODaR data was collected as part of an initiative by the Cardiff Research Consortium to provide a source of data on patient socio-demographics, clinical factors, quality of life and healthcare resource use from the same patient group [@currie2005routine]. The HODaR data measures utilities using the EQ-5D, a widely used generic (disease non-specific) quality of life instrument as recommended by the National Institute for Health and Care Excellence (NICE) for health economic evaluation [@NICEguide]. Relevant points of description from Currie et al. [-@currie2005routine] are:   
 
 - HODaR supplements routine clinically coded data from the Cardiff and Vale NHS Hospitals Trust, UK, with survey data covering sociodemographic characteristics, QoL, utility, and resource use information.  
-- Data that constitutes HODaR were collated from a prospective survey of subjects treated as inpatients or outpatients at Cardiff and Vale NHS Hospitals Trust, a large University hospital in the UK. This group of hospitals provides acute services excluding some cancer services. Details from the survey are then linked to existing routine hospital health data.  
-- Patients attending the hospital, and included in the survey, reside primarily in the geographic region of Cardiff and the Vale of Glamorgan, South Wales, UK  
-- Details of the proposed survey were submitted to the Local Research Ethics Committee and each subject included within HODaR has returned the patient survey together with written consent for the use of their data.   
+- Data that constitutes HODaR were collated from a prospective survey of subjects treated as inpatients or outpatients. Details from the survey are then linked to existing routine hospital health data.  
 - All inpatients aged 18 years or older are surveyed. Subjects with a record of a psychological illness or learning disability are presently excluded if they were admitted with a primary diagnosis for a psychological illness. Subjects who were known to have died are also excluded. Outpatient clinics are included on a rotational basis with all patients within the selected clinic surveyed.  
 - For inpatients, all subjects are surveyed 6 weeks post-discharge by postal survey with a 'freepost' return envelope. For outpatients, all patients attending a selected clinic are handed a survey pack by the clinic receptionist when they attend. No reminders are sent to non-responders.  
 
 We were provided with two datasets in the form of inpatient data and survey data:  
 
-- The inpatient data includes a pseudo-anonymised patient identification number and information on the type of admission including the dates of admission and diagnostic and operation codes. The inpatient data is provided at episode level and was filtered such that we were only provided with episodes that had an alcohol or tobacco-related ICD-10 code in one of the diagnostic positions remained.  
+- The inpatient data includes a pseudo-anonymised patient identification number and information on the type of admission including the dates of admission and diagnostic and operation codes. The inpatient data is provided at episode level and was filtered such that we were only provided with episodes that had an alcohol or tobacco-related ICD-10 code in one of the diagnostic positions.  
 
 - The survey data includes the patient's pseudo-anonymised identification number, the postal and response date of the survey, and further patient information including gender, year of birth, alcohol and tobacco consumption and EQ-5D responses.   
 
-The HODaR data measures utilities using the EQ-5D, a widely used generic (disease non-specific) quality of life instrument as recommended by the National Institute for Health and Care Excellence (NICE) for health economic evaluation.  
-
 ## Programme of work
-The University of Sheffield is conducting a programme of work to model the health and economic impact of policies and interventions that aim to reduce the consumption of tobacco and alcohol to improve health for all. This research takes into account health-related quality of life, i.e. we model effects on mortality and on the quality of life while alive and experiencing a disease. The utility values for the set of alcohol-related diseases used in SAPM were derived from a previous analysis of the Health Outcomes Data Repository (HODaR) data [@Brennan2009]. With the HODaR data we aim to develop our analysis of health state utility values to cover our full set of tobacco and alcohol related diseases. The findings will provide evidence to inform choices between policy options that aim to reduce the harms that arise from tobacco and alcohol consumption. In general terms, the outputs of the projects within our programme of work generate knowledge for policymakers to support decision-making. 
+The University of Sheffield is conducting a programme of work to model the health and economic impact of policies and interventions that aim to reduce the consumption of tobacco and alcohol to improve health for all. This builds on previous research using the Sheffield Alcohol Policy Model (SAPM) [@Brennan2015;@Brennan2016]. This research takes into account health-related quality of life, i.e. we model effects on mortality and on the quality of life while alive and experiencing a disease (by using estimated HSUVs). The utility values for the set of alcohol-related diseases used in SAPM were derived from a previous analysis of the HODaR data [@Brennan2009]. In our STAPM modelling, we use the HODaR data to extend our analysis of HSUVs to cover our full set of tobacco and alcohol related diseases.    
 
 ### Diseases attributable to tobacco and/or alcohol {#smokediseases}
-We estimate utility scores associated with a set of conditions that have been classed as wholly- or partially-attributable to the consumption of tobacco or alcohol. Our current list of conditions is large (84 separate ICD-10 categories in total) and includes several cancers, cardiovascular diseases and respiratory diseases. We consider 52 diseases related to tobacco [@Webster2018] and 45 diseases related to alcohol [@Angus2018] (we expand the alcohol list to 48 conditions when merging our tobacco and alcohol disease lists by subdividing some of the ICD-10 categories). Within our merged disease list, there are 15 conditions that are related to both tobacco and alcohol.   
+We estimate utility scores associated with 84 categories of diseases defined by ICD-10 codes. This list includes several cancers, cardiovascular diseases and respiratory diseases. We consider 52 diseases related to tobacco [@Webster2018] and 45 diseases related to alcohol [@Angus2018] (we then expand the alcohol list to 48 conditions when merging our tobacco and alcohol disease lists by subdividing some of the ICD-10 categories). Within our merged disease list, there are 15 conditions that are related to both tobacco and alcohol.   
 
 ### Disease-specific morbidity rates
-In the SAPM, morbidity prevalence rates are based on person-specific hospitalisations estimated from Hospital Episode Statistics (HES) data. The logic of calculating person-specific hospitalisations goes as follows: if the same person was admitted on three separate occasions for oesophageal cancer during the year, then this would be counted as just one person-specific hospitalisation. When an individual is admitted on two or more different occasions for two different reasons (e.g. once for oesophageal cancer and once for a fall), then the person-specific admission a set of rules are applied to attribute the admission to one of these reasons to avoid (see our report on the [methods to process hospital admission data](https://stapm.gitlab.io/r-packages/hesr/articles/English_secondary_care_modelling_report.pdf) for use in the STAPM modelling). The result of using this method is that in any year of the model we can partition individuals among our set of 84 tobacco- and alcohol-related conditions, i.e. between 84 mutually exclusive health states, and an additional "no tobacco- or alcohol-related conditions" health state.   
+In the SAPM, we approximate the prevalence of different diseases in the population based on person-specific rates of hospitalisation estimated from Hospital Episode Statistics (HES) data. We stratify these rates by age, sex and socio-economic conditions (in terms of Index of Multiple Deprivation quintiles). The logic of calculating person-specific hospitalisations goes as follows: if the same person was admitted on three separate occasions for oesophageal cancer during the year, then this would be counted as just one person-specific hospitalisation. When an individual is admitted on two or more different occasions for two different reasons (e.g. once for oesophageal cancer and once for a fall), then the person-specific admission a set of rules are applied to attribute the admission to one of these reasons to avoid (see our report on the [methods to process hospital admission data](https://stapm.gitlab.io/r-packages/hesr/articles/English_secondary_care_modelling_report.pdf) for use in the STAPM modelling). The result of using this method is that in any year of the model we can partition individuals among our set of 84 tobacco- and alcohol-related conditions, i.e. between 84 mutually exclusive health states, and an additional "no tobacco- or alcohol-related conditions" health state.     
 
 # The aim of this report
-This report is focused on explaining our choice of method to estimate utilities for 45 conditions related to alcohol and 52 conditions related to tobacco (15 related to both tobacco and alcohol) based on analysis of the HODaR data. The HODaR data measures utilities using the EQ-5D, a widely used generic (disease non-specific) quality of life instrument as recommended by NICE for health economic evaluation.    
+This report is focused on explaining our choice of method to estimate mean utilities for the 84 conditions related to tobacco and/or alcohol based on analysis of the HODaR data. We also explain how we estimate the utility of people who do not have any tobacco or alcohol related disease. We describe our methods to deal with small sample sizes, and to stratify our utility estimates by age and sex.  
 
 # Methods
 
-## Calculating the mean utility value for each condition
+## Process HODaR inpatient data
+We first load the episode-level inpatient data, retaining the pseudo-anonymised patient ID, the dates of admission and discharge, the number of the episode within the admission (1st, 2nd ...), 13 diagnosis positions into which an ICD-10 code could be entered. We then collapsed the episode-level dataset to an admission-level dataset. This new admission-level dataset contained a column for each tobacco and/or alcohol related diagnosis in which we indicated with 0 or 1 whether that admission contained the corresponding diagnosis code in any of the 13 diagnostic positions of any episode. Thus, rather than select a single disease diagnosis to assign to an admission (which we do when we calculate the rates of hospital admissions for each disease), we instead indexed each admission by multiple tobacco and/or alcohol related diagnoses. This methods choice was made to maximise the sample size available to calculate the mean utility for each diagnosis. Figure \@ref(fig:epidiag) shows an example of how an admission including two episodes, where the first episode contained two alcohol/tobacco-related conditions, and the second episode a further tobacco-related condition, is collapsed into one admission containing all three.   
 
-### Process HODaR inpatient data - collapse from episode to admission level 
-We collapsed episodes into admissions to get admission level data. All alcohol/tobacco-conditions that were included during the admission are retained (summed across episodes). This leaves a row for each admission, with a column for each condition signifying whether they had any diagnostic code related to alcohol or tobacco during their admission. Figure 1 shows an example of how an admission including two episodes, where the first episode contained two alcohol/tobacco-related conditions, and the second episode a further tobacco-related condition, is collapsed into one admission containing all three. 
+```{r epidiag, fig.cap = "Example of collapsing episodes into admissions.", out.width = "75%", out.extra = "", fig.pos = "h", echo=FALSE, fig.align="center"}
 
-### Combining the HODaR inpatient and survey data 
-A patient may have several admissions throughout the year. During this time, a survey is sent out (usually six weeks after discharge). The only matching variable that both datasets contained was the patient ID; our problem was therefore how to match the survey data to the inpatient data when there were several admissions throughout the year.     
+knitr::include_graphics("inst/epi_to_adm_diag.png")
 
-The inpatient data and the survey data are matched using the patient ID. Three rules are implemented to make sure the surveys are matched to the appropriate admissions to the survey:   
+```
+
+## Process HODaR survey data 
+We first load the HODaR survey data, and removing missing values for age, sex and the five dimensions of the EQ-5D (mobility, self-care, usual activities, pain, and depression). We then calculate the EQ-5D-3L using the time trade-off (TTO) valuation technique using the `eq5d` R package [@eq5dpackage].
+
+## Combine the HODaR inpatient and survey data 
+A patient may have several admissions throughout the year. During this time, a survey is sent out (usually six weeks after discharge). The only matching variable that both datasets contained was the patient ID - our problem was therefore how to match the survey data to the inpatient data when there were several admissions throughout the year.     
+
+The inpatient data and the survey data are matched using the patient ID. Three rules are applied to help ensure that the survey responses are matched to the most appropriate admissions:   
 
 1. The admission must be discharged before the survey was sent,
 2. The time between the patient discharge and the date of the survey sent must be under a year,
 3. If an admission matched with two surveys, the admission is matched to the earliest survey.
 
-If a survey is matched with multiple admissions, we assume the survey applies to all admissions within the previous year. In the absence of data at other time points we assume that the six-week utility score from the survey is representative of the score for a full year in our model. This may under- or over-estimate QALY gain of avoided health harms.   
+If a survey is matched with multiple admissions, we assume the survey applies to all admissions within the previous year. In the absence of data at other time points we assume that the six-week utility score from the survey is representative of the score for a full year in our model.   
 
-### Calcuate mean utility scores for tobacco- and alcohol-related conditions
-A mean utility value is estimated for each condition based on ICD-10 codes. Due to the way we set up the HoDAR data to have a column representing each condition with a binary variable signifying whether that condition was in the admission, we simply averaged across the utilities from each admission where the condition was included. While utilities can be extracted per age and sex group, only the mean utility is extracted because direct analysis at a condition/age level involves very small sample sizes.   
+## Calcuate mean utility scores for tobacco- and alcohol-related conditions
+A mean utility value is estimated for each condition based on ICD-10 codes. Due to the way we set up the HoDAR data to have a column representing each condition with a binary variable signifying whether that condition was in the admission, we simply averaged across the utilities from each admission where the condition was included. Only the overall mean utility for a condition is calculated because stratified analyses by age and sex involve very small sample sizes for some conditions.     
 
-### Conditions with small numbers of observations
-For conditions where no utility data was available, utilities were assumed to be similar to close conditions. Thus, utilities for alcohol induced Cushing syndrome, alcoholic polyneuropathy and degeneration were assumed to be similar to mental and behavioural disorders due to alcohol. Utilities for psychosis were assumed to be similar to schizophrenia. Utilities for alcoholic myopathy were assumed to be similar to utilities for alcohol cardiomyopathy. The utility for excessive blood level of alcohol was assumed to be similar to evidence of alcohol involvement determined by blood alcohol level. Utilities for drowning were assumed to be similar to transport injuries. Finally, utilities for other intentional injuries were assumed to be similar to other unintentional injuries. This follows previous guidance from SAPM2.    
+For conditions with no observations or small numbers of observations, where it was not possible to calculate a mean utility score, utilities were assumed to be similar to close conditions. This follows the previous approach in SAPM [@Brennan2009].    
 
-In our list of tobacco and alcohol related diseases there are some less common ICD-10 codes, for which we expect that there will be a limited number of observations for in the HODaR data. We will assess this issue during data processing. For conditions where no utility data is available, we will explore two possibilities: (1) we might be able to use information from the Medical Expenditure Panel Survey, from the United States, which also provides EQ-5D by ICD-10 codes; (2) we might reasonably assume that utilities are the same as those for closely related conditions. For example, in our previous analysis of the HODaR data for SAPM, we made the following assumptions: Utilities for mental and behavioural disorders and for alcohol induced Cushing syndrome were assumed to be similar to alcoholic polyneuropathy. Utilities for alcoholic myopathy were assumed to be similar to utilities for alcoholic cardiomyopathy. The utility for methanol poisoning was assumed to be similar to ethanol poisoning. Utilities for air/space and water transport accidents were assumed to be similar to road traffic accidents. Finally, utilities for firearm injuries, drowning, fire injuries and accidental excessive cold were assumed to be similar to pedestrian traffic accident.
+- Utilities for alcohol induced pseudo-cushings syndrome, alcoholic polyneuropathy and degeneration were assumed to be similar to mental and behavioural disorders due to alcohol. 
+- Utilities for psychosis were assumed to be similar to schizophrenia. 
+- Utilities for alcoholic myopathy were assumed to be similar to utilities for alcohol cardiomyopathy.
+- Utilities for excessive blood level of alcohol was assumed to be similar to evidence of alcohol involvement determined by blood alcohol level. 
+- Utilities for drowning were assumed to be similar to transport injuries. 
+- Utilities for other intentional injuries were assumed to be similar to other unintentional injuries.
 
-## Estimate general population utilities by age, sex and IMD quintile from the Health Survey for England
-A model was designed to estimate the general population utility values using the Health Survey for England3. This assumes the baseline utility profile is equal to the profile of utility from the general population irrespective of history of conditions. We use these age-sex-specific general population utilities as calculated using the formula from Ara and Brazier (2010)3: 
+## Estimate general population utilities by age and sex
+Ara and Brazier [-@Ara2010] fitted a linear regression to EQ-5D values from the Health Survey for England (2003 \& 2006). We use the estimates from their model 1:  
+
+\begin{equation}
+\text{EQ-5D} = 0.9508566 + 0.0212126\times{}male - 0.0002587\times{}age - 0.0000332\times{}age^2, (\#eq:arabrazeq)
+\end{equation}
+
+which can be used to estimate the mean HSUVs for individuals in the general population (Figure \@ref(fig:arabraz)).    
+
+```{r arabraz, eval = T, warning = F, out.extra='', fig.pos = "H", echo=F, fig.width = 5, fig.height = 3, fig.cap = "General population utility scores for males and females aged 11-89 years.", cache = F, fig.align = "center"}
+
+data <- data.frame(expand.grid(age = 11:89, sex = c("Male", "Female")))
+setDT(data)
+
+data[sex == "Male", utility := 0.9508566 + 0.0212126 - 0.0002587*age - 0.0000332*(age^2)]
+data[sex == "Female", utility := 0.9508566 - 0.0002587*age - 0.0000332*(age^2)]
+
+ggplot(data) +
+  geom_line(aes(x = age, y = utility, linetype = sex)) +
+  theme_minimal() +
+  ylim(0,1)
+
+```
 
 ## Social stratification of condition-specific utility values
-We will explore the potential to stratify utility values by age, sex and an indication of socioeconomic conditions e.g. quintiles of the English Index of Multiple Deprivation, bearing in mind that splitting the data into these subgroups will produce small sample sizes. In the event that small sample sizes prevent us from stratifying utilities further than by condition, we will explore methods to adjust for age, sex and socioeconomic conditions using the relative increment/decrement observed for utilities in the general population.
+To calculate age-sex-condition specific utility scores, we calculate an adjustment factor (that we call a 'multiplier') that is applied to the mean general population utility score for each condition to produce estimates of utility scores for each condition that vary by age and sex [@Ara2010]. For each condition the steps are as follows:    
 
-To calculate age-sex-condition specific HSUVs, we calculate a multiplier3. The multiplier is a constant proportional effect that is applied to the age-sex-baseline utility values to calculate the age-sex-condition-specific utility values.
+1. From the HODaR data, calculate the sex-ratio (proportion males) and mean age of the patients who were recorded to have the condition. This information is then input into \@ref(eq:arabrazeq) to generate the expected general population utility score for a sample with the same age and sex composition. We denote this value $U_{GP}(\bar{a}, \bar{s})$.  
 
-### Multiplier
-A multiplier is calculated for each condition. The multiplier for a condition is obtained using the utility value for the condition and the baseline utility value for individuals with the same mean age and sex split as the condition. We calculate the mean age and sex split of the population with each condition in the HODaR data. We calculate the matched age-sex-specific general population utility for each condition using Eqn[1], using the mean age and sex of that condition population. The matched general population utility value gives the general population utility value for the same population as those who get sick from that condition. This is a way to match the two utility values to calculate the multiplier. To calculate the age-sex-condition-specific utility values we multiply of the age-sex-specific general population utility values by the multiplier of that condition.
+2. We calculate the multiplier as the ratio between the condition-specific utility score calculated from the HODaR data ($U_c$) and $U_{GP}(\bar{a}, \bar{s})$, i.e.
+\begin{equation}
+\text{Multiplier}_c = \frac{U_c}{U_{GP}(\bar{a}, \bar{s})}.
+\end{equation}
+
+3. The age-sex-condition specific utility scores ($U_c(a,s)$) are then calculated by multiplying the age-sex specific general population utility scores from \@ref(eq:arabrazeq) by the multiplier for the condition in question,
+\begin{equation}
+U_c(a,s) = U_{GP}(a, s)\times\text{Multiplier}_c.
+\end{equation}
 
 # Critique of methods
-There are some limitations relating to use of the HODaR data in the model. In particular, for acute alcohol-related conditions such as admission for road traffic accident, or fall or intentional self-harm, there is a question as to whether the measure of utility at six weeks following discharge is representative of the full consequences of the disease. For such acute conditions, there is clearly the likelihood that utility scores might be worse than the six week recorded measure immediately around the time of the incident. Equally, it is plausible that through the recovery process, patients' utility score might be better six or nine months post incident than they were at just six weeks. In the absence of data at other time points, we will assume that the six week utility score is representative of the score for a full year in the model. This may underestimate or overestimate the QALY gains of avoided health harms for acute conditions. Utilities in the general population for "normal health" will be extracted general population estimates, ideally stratified by age, sex and Index of Multiple Deprivation quintile.
+We chose a method that links utility score estimates to diseases, and one of the main things we have to contend with is that for rare diseases it is difficult to get sufficient sample size to estimate a mean utility score. When we empirically estimate and quality assure our utility score estimates we will therefore check the sample size that each estimate is based on and its corresponding standard error. For some conditions, we had no choice but to assume that the utility score is the same as other conditions that we assume to be equivalent. In addition, there is a question as to whether the measure of utility at six weeks following discharge is representative of the full consequences of living a year of life with the disease. For example, for acute alcohol related conditions such as falls, it is possible that utility scores will gradually improve through the process of recovery following the incident. Possible future extensions include making more use of the Health Survey for England data, which contains information on EQ-5D and a range of health risk factors, socio-economic and health characteristics [@vogl2012smoking;@maheswaran2013estimating].   
 
 # References
-
-
-
-
-
 
 

@@ -24,7 +24,9 @@ ready for calculating condition-specific utilities.
 \description{
 As the inpatient data and survey data were provided separately,
 this function merges the two datasets, matching the survey information
-to the inpatient data.
+to the inpatient data. Before it does so, it collapses the inpatient data
+from episode to admission level, and creates columns that indicate which
+tobacco- and alcohol-related diagnosis codes an admission contains.
 }
 \details{
 This function follows a set of rules to match the survey data to the inpatient data.

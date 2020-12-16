@@ -5,6 +5,17 @@
 #' the average utility for each condition, without any demographic stratification.
 #' \code{Adj_cond_utils()} is later used to stratify utilities by age and sex.
 #'
+#' For conditions where no utility data was available,
+#' utilities were assumed to be similar to close conditions.
+#' Thus, utilities for alcohol induced Cushing syndrome, alcoholic polyneuropathy and degeneration
+#' were assumed to be similar to mental and behavioural disorders due to alcohol.
+#' Utilities for psychosis were assumed to be similar to schizophrenia.
+#' Utilities for alcoholic myopathy were assumed to be similar to utilities for alcohol cardiomyopathy.
+#' The utility for excessive blood level of alcohol was assumed to be similar to evidence
+#' of alcohol involvement determined by blood alcohol level.
+#' Utilities for drowning were assumed to be similar to transport injuries.
+#' Finally, utilities for other intentional injuries were assumed to be similar to other unintentional injuries.
+#'
 #'
 #' @param data Data.table - the merged HODaR inpatient and survey data
 #' @param lkup Data table of conditions and respective ICD10 codes
@@ -86,8 +97,6 @@ CalcUtils <- function(
   # Missing data for Acute_pancreatitis_alcohol_induced, Alcohol_induced_pseudoCushings_syndrome, Alcoholic_myopathy,
   # Drowning, Excessive_Blood_Level_of_Alcohol, Maternal_care_for_suspected_damage_to_foetus_from_alcohol,
   # Other_intentional_injuries.
-
-
 
 
 

@@ -49,7 +49,9 @@
 <meta property="og:title" content="Merge the inpatient and survey HODaR data together  — merge_data" />
 <meta property="og:description" content="As the inpatient data and survey data were provided separately,
 this function merges the two datasets, matching the survey information
-to the inpatient data." />
+to the inpatient data. Before it does so, it collapses the inpatient data
+from episode to admission level, and creates columns that indicate which
+tobacco- and alcohol-related diagnosis codes an admission contains." />
 <meta property="og:image" content="https://stapm.gitlab.io/r-packages/qalyr/logo.png" />
 
 
@@ -82,7 +84,7 @@ to the inpatient data." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">qalyr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.1</span>
       </span>
     </div>
 
@@ -126,7 +128,9 @@ to the inpatient data." />
     <div class="ref-description">
     <p>As the inpatient data and survey data were provided separately,
 this function merges the two datasets, matching the survey information
-to the inpatient data.</p>
+to the inpatient data. Before it does so, it collapses the inpatient data
+from episode to admission level, and creates columns that indicate which
+tobacco- and alcohol-related diagnosis codes an admission contains.</p>
     </div>
 
     <pre class="usage"><span class='fu'>merge_data</span><span class='op'>(</span><span class='va'>inpatient_data</span>, <span class='va'>survey_data</span>, <span class='va'>lkup</span><span class='op'>)</span></pre>

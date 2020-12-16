@@ -3,7 +3,9 @@
 #'
 #' As the inpatient data and survey data were provided separately,
 #' this function merges the two datasets, matching the survey information
-#' to the inpatient data.
+#' to the inpatient data. Before it does so, it collapses the inpatient data
+#' from episode to admission level, and creates columns that indicate which
+#' tobacco- and alcohol-related diagnosis codes an admission contains.
 #'
 #' This function follows a set of rules to match the survey data to the inpatient data.
 #' The only field available to match the two datasets
@@ -42,6 +44,11 @@ merge_data <- function(
   survey_data,
   lkup
 ) {
+
+
+  #######################################################################
+  # Process inpatient data
+
 
   # Want to scan the diagnostic fields for tob/alc related conditions,
   # and create a new column for each condition with a binary outcome.
@@ -90,7 +97,7 @@ merge_data <- function(
     # Create a new column that has just the first 4 characters of the ICD-10 code.
     inpatient_data[ , icd_code := substr(get(diagnosisHeader), 1, 4)]
 
-    # Merge the inpatient_data with the data on alcohol attributable fractions (AAFs in lkup).
+    # Merge the inpatient_data with the lookup data
     inpatient_data <- merge(inpatient_data, lkup, by = c("icd_code"), all.x = T, all.y = F, sort = F)
 
     # Create new variables that store the 4 character ICD-10 code
@@ -142,7 +149,12 @@ merge_data <- function(
   inpatient_data <- inpatient_data[, lapply(.SD, sum, na.rm = TRUE),
                                    by = c("Patient_Number", "PS_Admit", "PS_Disch")]
 
-  cat("\tread in HODAR data\n")
+
+  #######################################################################
+  # Merge inpatient and survey data
+
+
+  cat("\tread in HODAR survey data\n")
 
   # HODAR survey data
   survey_data <- survey_data[ , list(Patient_Number, Date_Survey_Sent,
