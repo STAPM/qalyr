@@ -1,9 +1,6 @@
 destination: public
 home:
   title: Tobacco- and Alcohol-Related Health State Utility Value Estimation
-  links:
-  - text: STAPM webpage
-    href: https://stapm.gitlab.io/
 url: https://stapm.gitlab.io/r-packages/qalyr
 template:
   params:
@@ -19,7 +16,7 @@ authors:
 navbar:
   structure:
     left:  [home, intro, reference, articles]
-    right: [gitlab]
+    right: [gitlab, software]
   components:
     home: ~
     intro:
@@ -34,6 +31,10 @@ navbar:
     gitlab:
       icon: fab fa-gitlab fa-lg
       href: https://gitlab.com/stapm/r-packages/qalyr
+    software:
+      icon: fa-code
+      href: https://stapm.gitlab.io/software.html
+
 
 
 articles:
