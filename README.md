@@ -24,7 +24,8 @@ utility values from the Health Survey for England (Ara and Brazier
 [2010](#ref-Ara2010)). The suite of functions within `qalyr` wrangle the
 data into the correct format and then calculate the health state utility
 values, for which we use the `eq5d` R package (Morton and Nijjar
-[2020](#ref-eq5dpackage)).
+[2020](#ref-eq5dpackage)). See our [methodology
+report](https://stapm.gitlab.io/model-inputs/utility_report/qaly_estimation_report.pdf).
 
 `qalyr` was created as part of a programme of work on the health
 economics of tobacco and alcohol at the School of Health and Related

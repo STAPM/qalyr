@@ -36,13 +36,7 @@ navbar:
       icon: fa-code
       href: https://stapm.gitlab.io/software.html
 
-
-
 articles:
-- title: Methodology reports
-  contents:
-  - qaly_estimation_report
-
 - title: Code vignettes
   contents:
   - Condition_specific_utility_calculation
