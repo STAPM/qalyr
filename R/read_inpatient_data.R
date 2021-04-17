@@ -30,5 +30,5 @@ read_inpatient_data <- function(
                                            Diagno6, Diagno7, Diagno8, Diagno9, Diagno10,
                                            Diagno11, Diagno12, Diagno13)]
 
-  return(inpatient_data)
+  return(inpatient_data[])
 }

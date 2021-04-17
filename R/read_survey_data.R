@@ -1,5 +1,5 @@
 
-#' Reads in survey HODaR data \lifecycle{maturing}
+#' Reads in survey HODaR data \lifecycle{stable}
 #'
 #' Reads in the survey data and calculate EQ5D.
 #'
@@ -22,25 +22,34 @@ read_survey_data <- function(
   file = "D:/QALYs/Raw/routine_survey_data.csv"
 ) {
 
+  cat("Reading survey data\n")
+  
   # clean HODAR data
   HODAR_data <- fread(file)
 
+  
+  cat("Creating age and year variables\n")
+  
+  # Create age variable
+  HODAR_data <- HODAR_data[ , Year := format(as.Date(Date_Survey_Sent, format = "%d/%m/%Y"), "%Y")]
+  HODAR_data <- HODAR_data[ , Age := as.numeric(Year) - as.numeric(Year_of_birth)]
+  
+  cat("Removing missing values\n")
+  
   # Remove missing values for age, sex and dimensions of the EQ5D
   HODAR_data <- na.omit(HODAR_data,
                         cols = c("Mobility", "Self_Care", "Usual_Activities",
                                  "Pain", "Depressed", "Age", "gender"))
-
-  # Create age variable
-  HODAR_data <- HODAR_data[ , Year := format(as.Date(Date_Survey_Sent, format = "%d/%m/%Y"), "%Y")]
-  HODAR_data <- HODAR_data[ , Age := as.numeric(Year) - as.numeric(Year_of_birth)]
-
+ 
+  cat("Calculating utility values...\n")
+  
   # Add utility column
   scores <- data.frame(
-    MO = (HODAR_data$Mobility),
-    SC = c(HODAR_data$Self_Care),
-    UA = c(HODAR_data$Usual_Activities),
-    PD = c(HODAR_data$Pain),
-    AD = c(HODAR_data$Depressed)
+    MO = HODAR_data$Mobility,
+    SC = HODAR_data$Self_Care,
+    UA = HODAR_data$Usual_Activities,
+    PD = HODAR_data$Pain,
+    AD = HODAR_data$Depressed
   )
 
   # Calculate eq5d
@@ -51,5 +60,5 @@ read_survey_data <- function(
                                                     type = "TTO")]
 
 
-  return(HODAR_data)
+  return(HODAR_data[])
 }
