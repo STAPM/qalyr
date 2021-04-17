@@ -37,7 +37,7 @@ MeanAge_Sex <- function(
   lkup = qalyr::lkup
 ) {
 
-  conditions <- unique(lkup$Description)
+  conditions <- unique(lkup$condition)
 
   conditions <- as.character(conditions)
 

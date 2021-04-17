@@ -79,10 +79,10 @@ merge_data <- function(
 
     # Create new variables that store the 3 character ICD-10 code for each diagnosis code column
     # i.e. any matches of ICD-10 for diag_01 etc.
-    inpatient_data[ , (paste0("d3_cause_", i)) := Description]
+    inpatient_data[ , (paste0("d3_cause_", i)) := condition]
 
     # Delete the working columns above ready for the next iteration of the loop.
-    inpatient_data[ , Description := NULL]
+    inpatient_data[ , condition := NULL]
 
   }
 
@@ -101,10 +101,10 @@ merge_data <- function(
     inpatient_data <- merge(inpatient_data, lkup, by = c("icd_code"), all.x = T, all.y = F, sort = F)
 
     # Create new variables that store the 4 character ICD-10 code
-    inpatient_data[ , (paste0("d4_cause_", i)) := Description]
+    inpatient_data[ , (paste0("d4_cause_", i)) := condition]
 
     # Delete the working columns above ready for the next iteration of the loop.
-    inpatient_data[ , Description := NULL]
+    inpatient_data[ , condition := NULL]
 
   }
 
@@ -121,7 +121,7 @@ merge_data <- function(
   # Create subsets of the data that contain just the columns above.
   broad_cause  <- inpatient_data[causes]
 
-  conditions <- unique(lkup$Description)
+  conditions <- unique(lkup$condition)
 
   # A numerical index of those diagnosis codes.
   conditionPosition <- 1:length(conditions)
@@ -139,7 +139,7 @@ merge_data <- function(
 
   broad_cause <- broad_cause[, 27:110]
 
-  colnames(broad_cause) <- as.character(unique(lkup$Description))
+  colnames(broad_cause) <- as.character(unique(lkup$condition))
   broad_cause <- broad_cause * 1
 
   inpatient_data <- cbind(inpatient_data[, 2:5], broad_cause)
@@ -182,7 +182,8 @@ merge_data <- function(
   inpatient_data <- qalyr::Collapse_adm_survey(inpatient_data)
 
 
- return(inpatient_data)
+  
+  return(inpatient_data[])
 }
 
 

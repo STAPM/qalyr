@@ -42,10 +42,10 @@
 #'
 CalcUtils <- function(
   data,
-  lkup = qalyr::lkup
+  lkup
 ) {
 
-  conditions <- unique(lkup$Description)
+  conditions <- unique(lkup$condition)
 
   conditions <- as.character(conditions)
 

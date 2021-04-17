@@ -4,7 +4,7 @@
 \alias{CalcUtils}
 \title{Calculate the average utility for each alcohol/tobacco-related condition \lifecycle{maturing}}
 \usage{
-CalcUtils(data, lkup = qalyr::lkup)
+CalcUtils(data, lkup)
 }
 \arguments{
 \item{data}{Data.table - the merged HODaR inpatient and survey data}
