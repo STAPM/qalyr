@@ -2,7 +2,7 @@
 % Please edit documentation in R/read_survey_data.R
 \name{read_survey_data}
 \alias{read_survey_data}
-\title{Reads in survey HODaR data \lifecycle{maturing}}
+\title{Reads in survey HODaR data \lifecycle{stable}}
 \usage{
 read_survey_data(file = "D:/QALYs/Raw/routine_survey_data.csv")
 }

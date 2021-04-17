@@ -48,7 +48,6 @@ reference:
   - read_survey_data
   - merge_data
   - MeanAge_Sex
-  - lkup
   - Collapse_adm_survey
   - CalcUtils
   - Adj_cond_utils
