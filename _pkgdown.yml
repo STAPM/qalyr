@@ -39,6 +39,7 @@ navbar:
 articles:
 - title: Code vignettes
   contents:
+  - qalyr
   - Condition_specific_utility_calculation
 
 reference:
