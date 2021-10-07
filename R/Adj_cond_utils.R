@@ -1,5 +1,5 @@
 
-#' Adjust the condition-specific utility for age and sex \lifecycle{maturing}
+#' Adjust the condition-specific utility for age and sex
 #'
 #' Calculates an average utility for each alcohol/tobacco-related condition by age and sex.
 #' Need to calculate the mean age and proportion of males for each condition in the HODAR data.

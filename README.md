@@ -19,12 +19,12 @@ utility values for diseases related to tobacco and/or alcohol were
 prepared for input to our decision-analytic models. Health state utility
 values associated with tobacco- and alcohol-related disease diagnosis
 codes are derived from the Health Outcomes Data Repository (HODaR) data
-(Currie et al. [2005](#ref-currie2005routine)), and general population
-utility values from the Health Survey for England (Ara and Brazier
-[2010](#ref-Ara2010)). The suite of functions within `qalyr` wrangle the
+([Currie et al. 2005](#ref-currie2005routine)), and general population
+utility values from the Health Survey for England ([Ara and Brazier
+2010](#ref-Ara2010)). The suite of functions within `qalyr` wrangle the
 data into the correct format and then calculate the health state utility
-values, for which we use the `eq5d` R package (Morton and Nijjar
-[2020](#ref-eq5dpackage)). See our [methodology
+values, for which we use the `eq5d` R package ([Morton and Nijjar
+2020](#ref-eq5dpackage)). See our [methodology
 report](https://stapm.gitlab.io/model-inputs/utility_report/qaly_estimation_report.pdf).
 
 `qalyr` was created as part of a programme of work on the health
@@ -38,8 +38,8 @@ consumption behaviours.
 
 ## HODaR data
 
-The following is a summary from Currie et
-al. ([2005](#ref-currie2005routine)).
+The following is a summary from Currie et al.
+([2005](#ref-currie2005routine)).
 
 *HODaR supplements routine clinically coded data from the Cardiff and
 Vale NHS Hospitals Trust, UK, with survey data covering sociodemographic
@@ -81,8 +81,8 @@ general population utility values by Ara and Brazier
 
 The **processes** are performed by functions that:
 
-  - Read and link the HODaR survey and inpatient data  
-  - Calculate and adjust the disease specific and general population
+-   Read and link the HODaR survey and inpatient data  
+-   Calculate and adjust the disease specific and general population
     utility values
 
 The **outputs** are lookup tables of utility values ready for use in our
@@ -127,19 +127,11 @@ library(magrittr) # for pipes
 library(ggplot2) # for plotting
 ```
 
-## Citation
-
-Please cite the latest version of the package using:  
-“Duncan Gillespie, Laura Webster, Colin Angus and Alan Brennan (2020).
-qalyr: Tobacco- and Alcohol-Related Health State Utility Value
-Estimation. R package version x.x.x.
-<https://stapm.gitlab.io/r-packages/qalyr>.”
-
 ## References
 
-<div id="refs" class="references hanging-indent">
+<div id="refs" class="references csl-bib-body hanging-indent">
 
-<div id="ref-Ara2010">
+<div id="ref-Ara2010" class="csl-entry">
 
 Ara, Roberta, and John E Brazier. 2010. “Populating an Economic Model
 with Health State Utility Values: Moving Toward Better Practice.” *Value
@@ -148,22 +140,22 @@ in Health* 13 (5): 509–18.
 
 </div>
 
-<div id="ref-currie2005routine">
+<div id="ref-currie2005routine" class="csl-entry">
 
 Currie, Craig J, Phil McEwan, John R Peters, Tunia C Patel, and Simon
 Dixon. 2005. “The Routine Collation of Health Outcomes Data from
 Hospital Treated Subjects in the Health Outcomes Data Repository
-(Hodar): Descriptive Analysis from the First 20,000 Subjects.” *Value in
+(HODaR): Descriptive Analysis from the First 20,000 Subjects.” *Value in
 Health* 8 (5): 581–90.
 <https://doi.org/10.1111/j.1524-4733.2005.00046.x>.
 
 </div>
 
-<div id="ref-eq5dpackage">
+<div id="ref-eq5dpackage" class="csl-entry">
 
-Morton, Fraser, and Jagtar Singh Nijjar. 2020. *eq5d: Methods for
-Calculating ’EQ-5D’ Utility Index Scores*.
-<https://CRAN.R-project.org/package=eq5d>.
+Morton, Fraser, and Jagtar Singh Nijjar. 2020. *<span
+class="nocase">eq5d: Methods for Calculating ’EQ-5D’ Utility Index
+Scores</span>*. <https://CRAN.R-project.org/package=eq5d>.
 
 </div>
 

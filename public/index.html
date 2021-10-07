@@ -63,7 +63,7 @@
 <ul class="nav navbar-nav navbar-right">
 <li>
   <a href="https://gitlab.com/stapm/r-packages/qalyr">
-    <span class="fab fa fab fa-gitlab fa-lg"></span>
+    <span class="fab fa-gitlab fa-lg"></span>
      
   </a>
 </li>
@@ -94,13 +94,13 @@
 <div id="motivation" class="section level2">
 <h2 class="hasAnchor">
 <a href="#motivation" class="anchor"></a>Motivation</h2>
-<p>The motivation for <code>qalyr</code> was to standardised the way that health state utility values for diseases related to tobacco and/or alcohol were prepared for input to our decision-analytic models. Health state utility values associated with tobacco- and alcohol-related disease diagnosis codes are derived from the Health Outcomes Data Repository (HODaR) data (Currie et al. <a href="#ref-currie2005routine">2005</a>), and general population utility values from the Health Survey for England (Ara and Brazier <a href="#ref-Ara2010">2010</a>). The suite of functions within <code>qalyr</code> wrangle the data into the correct format and then calculate the health state utility values, for which we use the <code>eq5d</code> R package (Morton and Nijjar <a href="#ref-eq5dpackage">2020</a>). See our <a href="https://stapm.gitlab.io/model-inputs/utility_report/qaly_estimation_report.pdf">methodology report</a>.</p>
+<p>The motivation for <code>qalyr</code> was to standardised the way that health state utility values for diseases related to tobacco and/or alcohol were prepared for input to our decision-analytic models. Health state utility values associated with tobacco- and alcohol-related disease diagnosis codes are derived from the Health Outcomes Data Repository (HODaR) data (<a href="#ref-currie2005routine">Currie et al. 2005</a>), and general population utility values from the Health Survey for England (<a href="#ref-Ara2010">Ara and Brazier 2010</a>). The suite of functions within <code>qalyr</code> wrangle the data into the correct format and then calculate the health state utility values, for which we use the <code>eq5d</code> R package (<a href="#ref-eq5dpackage">Morton and Nijjar 2020</a>). See our <a href="https://stapm.gitlab.io/model-inputs/utility_report/qaly_estimation_report.pdf">methodology report</a>.</p>
 <p><code>qalyr</code> was created as part of a programme of work on the health economics of tobacco and alcohol at the School of Health and Related Research (ScHARR), The University of Sheffield. This programme is based around the construction of the Sheffield Tobacco and Alcohol Policy Model (STAPM), which aims to use comparable methodologies to evaluate the impacts of tobacco and alcohol policies, and investigate the consequences of clustering and interactions between tobacco and alcohol consumption behaviours.</p>
 </div>
 <div id="hodar-data" class="section level2">
 <h2 class="hasAnchor">
 <a href="#hodar-data" class="anchor"></a>HODaR data</h2>
-<p>The following is a summary from Currie et al. (<a href="#ref-currie2005routine">2005</a>).</p>
+<p>The following is a summary from Currie et al. (<a href="#ref-currie2005routine">2005</a>).</p>
 <p><em>HODaR supplements routine clinically coded data from the Cardiff and Vale NHS Hospitals Trust, UK, with survey data covering sociodemographic characteristics, QoL, utility, and resource use information. Data that constitutes HODaR were collated from a prospective survey of subjects treated as inpatients or outpatients. Details from the survey then need to be linked to existing routine hospital health data. All inpatients aged 18 years or older were surveyed. For inpatients, all subjects were surveyed 6 weeks postdischarge by postal survey with a “freepost” return envelope. For outpatients, all patients attending a selected clinic were handed a survey pack by the clinic receptionist when they attend.</em></p>
 <p>We were provided with two datasets in the form of inpatient data and survey data. The inpatient data includes a pseudo-anonymised patient identification number and information on the type of admission including the dates of admission and diagnostic and operation codes. The inpatient data is provided at episode level and was filtered such that we were only provided with episodes that had an alcohol or tobacco-related ICD-10 code in one of the diagnostic positions remained.</p>
 </div>
@@ -149,26 +149,20 @@
 <span class="co"># Other useful packages</span>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org">dplyr</a></span><span class="op">)</span> <span class="co"># for data manipulation and summary</span>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://magrittr.tidyverse.org">magrittr</a></span><span class="op">)</span> <span class="co"># for pipes</span>
-<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="http://ggplot2.tidyverse.org">ggplot2</a></span><span class="op">)</span> <span class="co"># for plotting</span></code></pre></div>
-</div>
-<div id="citation" class="section level2">
-<h2 class="hasAnchor">
-<a href="#citation" class="anchor"></a>Citation</h2>
-<p>Please cite the latest version of the package using:<br>
-“Duncan Gillespie, Laura Webster, Colin Angus and Alan Brennan (2020). qalyr: Tobacco- and Alcohol-Related Health State Utility Value Estimation. R package version x.x.x. <a href="https://stapm.gitlab.io/r-packages/qalyr" class="uri">https://stapm.gitlab.io/r-packages/qalyr</a>.”</p>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://ggplot2.tidyverse.org">ggplot2</a></span><span class="op">)</span> <span class="co"># for plotting</span></code></pre></div>
 </div>
 <div id="references" class="section level2">
 <h2 class="hasAnchor">
 <a href="#references" class="anchor"></a>References</h2>
-<div id="refs" class="references hanging-indent">
-<div id="ref-Ara2010">
-<p>Ara, Roberta, and John E Brazier. 2010. “Populating an Economic Model with Health State Utility Values: Moving Toward Better Practice.” <em>Value in Health</em> 13 (5): 509–18. <a href="https://doi.org/10.1111/j.1524-4733.2010.00700.x" class="uri">https://doi.org/10.1111/j.1524-4733.2010.00700.x</a>.</p>
+<div id="refs" class="references csl-bib-body hanging-indent">
+<div id="ref-Ara2010" class="csl-entry">
+Ara, Roberta, and John E Brazier. 2010. “Populating an Economic Model with Health State Utility Values: Moving Toward Better Practice.” <em>Value in Health</em> 13 (5): 509–18. <a href="https://doi.org/10.1111/j.1524-4733.2010.00700.x" class="uri">https://doi.org/10.1111/j.1524-4733.2010.00700.x</a>.
 </div>
-<div id="ref-currie2005routine">
-<p>Currie, Craig J, Phil McEwan, John R Peters, Tunia C Patel, and Simon Dixon. 2005. “The Routine Collation of Health Outcomes Data from Hospital Treated Subjects in the Health Outcomes Data Repository (Hodar): Descriptive Analysis from the First 20,000 Subjects.” <em>Value in Health</em> 8 (5): 581–90. <a href="https://doi.org/10.1111/j.1524-4733.2005.00046.x" class="uri">https://doi.org/10.1111/j.1524-4733.2005.00046.x</a>.</p>
+<div id="ref-currie2005routine" class="csl-entry">
+Currie, Craig J, Phil McEwan, John R Peters, Tunia C Patel, and Simon Dixon. 2005. “The Routine Collation of Health Outcomes Data from Hospital Treated Subjects in the Health Outcomes Data Repository (HODaR): Descriptive Analysis from the First 20,000 Subjects.” <em>Value in Health</em> 8 (5): 581–90. <a href="https://doi.org/10.1111/j.1524-4733.2005.00046.x" class="uri">https://doi.org/10.1111/j.1524-4733.2005.00046.x</a>.
 </div>
-<div id="ref-eq5dpackage">
-<p>Morton, Fraser, and Jagtar Singh Nijjar. 2020. <em>eq5d: Methods for Calculating ’EQ-5D’ Utility Index Scores</em>. <a href="https://CRAN.R-project.org/package=eq5d" class="uri">https://CRAN.R-project.org/package=eq5d</a>.</p>
+<div id="ref-eq5dpackage" class="csl-entry">
+Morton, Fraser, and Jagtar Singh Nijjar. 2020. <em><span class="nocase">eq5d: Methods for Calculating ’EQ-5D’ Utility Index Scores</span></em>. <a href="https://CRAN.R-project.org/package=eq5d" class="uri">https://CRAN.R-project.org/package=eq5d</a>.
 </div>
 </div>
 </div>

@@ -112,7 +112,7 @@ average age and mean proportion of males admitted for each condition." />
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="https://gitlab.com/stapm/r-packages/qalyr">
-    <span class="fab fa fab fa-gitlab fa-lg"></span>
+    <span class="fab fa-gitlab fa-lg"></span>
      
   </a>
 </li>
@@ -135,7 +135,7 @@ average age and mean proportion of males admitted for each condition." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Calculate mean age and proportion of males for each condition in HODAR <a href='https://www.tidyverse.org/lifecycle/#maturing'><img src='figures/lifecycle-maturing.svg' alt='Maturing lifecycle'></a></h1>
+    <h1>Calculate mean age and proportion of males for each condition in HODAR <a href='https://lifecycle.r-lib.org/articles/stages.html#maturing'><img src='figures/lifecycle-maturing.svg' alt='[Maturing]' /></a></h1>
     
     <div class="hidden name"><code>MeanAge_Sex.Rd</code></div>
     </div>
@@ -147,7 +147,7 @@ in the HODAR data. This function uses the merged HoDAR survey and inpatient data
 average age and mean proportion of males admitted for each condition.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>MeanAge_Sex</span><span class='op'>(</span><span class='va'>data</span>, lkup <span class='op'>=</span> <span class='fu'>qalyr</span><span class='fu'>::</span><span class='va'><a href='lkup.html'>lkup</a></span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>MeanAge_Sex</span><span class='op'>(</span><span class='va'>data</span>, lkup <span class='op'>=</span> <span class='fu'>qalyr</span><span class='fu'>::</span><span class='va'>lkup</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -159,7 +159,7 @@ average age and mean proportion of males admitted for each condition.</p>
     <tr>
       <th>lkup</th>
       <td><p>Data table of conditions and respective ICD10 codes -
-default stored in package as <code><a href='lkup.html'>qalyr::lkup</a></code>.</p></td>
+default stored in package as <code>qalyr::lkup</code>.</p></td>
     </tr>
     </table>
 
@@ -174,9 +174,9 @@ default stored in package as <code><a href='lkup.html'>qalyr::lkup</a></code>.</
 <span class='va'>data</span> <span class='op'>&lt;-</span> <span class='fu'>qalyr</span><span class='fu'>::</span><span class='fu'><a href='merge_data.html'>merge_data</a></span><span class='op'>(</span>
   inpatient_data <span class='op'>=</span> <span class='fu'>qalyr</span><span class='fu'>::</span><span class='fu'><a href='read_inpatient_data.html'>read_inpatient_data</a></span><span class='op'>(</span><span class='op'>)</span>,
   survey_data <span class='op'>=</span> <span class='fu'>qalyr</span><span class='fu'>::</span><span class='fu'><a href='read_survey_data.html'>read_survey_data</a></span><span class='op'>(</span><span class='op'>)</span>,
-  lkup <span class='op'>=</span> <span class='fu'>qalyr</span><span class='fu'>::</span><span class='va'><a href='lkup.html'>lkup</a></span><span class='op'>)</span>
+  lkup <span class='op'>=</span> <span class='fu'>qalyr</span><span class='fu'>::</span><span class='va'>lkup</span><span class='op'>)</span>
 
-<span class='va'>age_sex_condition</span> <span class='op'>&lt;-</span> <span class='fu'>qalyr</span><span class='fu'>::</span><span class='fu'>MeanAge_Sex</span><span class='op'>(</span>data <span class='op'>=</span> <span class='va'>data</span>, lkup <span class='op'>=</span> <span class='fu'>qalyr</span><span class='fu'>::</span><span class='va'><a href='lkup.html'>lkup</a></span><span class='op'>)</span>
+<span class='va'>age_sex_condition</span> <span class='op'>&lt;-</span> <span class='fu'>qalyr</span><span class='fu'>::</span><span class='fu'>MeanAge_Sex</span><span class='op'>(</span>data <span class='op'>=</span> <span class='va'>data</span>, lkup <span class='op'>=</span> <span class='fu'>qalyr</span><span class='fu'>::</span><span class='va'>lkup</span><span class='op'>)</span>
 
 <span class='op'>}</span>
 

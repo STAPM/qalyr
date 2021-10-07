@@ -2,7 +2,7 @@
 % Please edit documentation in R/merge_data.R
 \name{merge_data}
 \alias{merge_data}
-\title{Merge the inpatient and survey HODaR data together \lifecycle{maturing}}
+\title{Merge the inpatient and survey HODaR data together}
 \usage{
 merge_data(inpatient_data, survey_data, lkup)
 }

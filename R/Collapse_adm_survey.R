@@ -1,5 +1,5 @@
 
-#' Collapse admissions into surveys \lifecycle{maturing}
+#' Collapse admissions into surveys
 #'
 #' This function is used within the function \code{merge_data()}
 #'  to collapse the data to assign a survey to each admission. Multiple admissions can be allocated

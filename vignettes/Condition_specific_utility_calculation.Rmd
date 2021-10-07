@@ -1,8 +1,11 @@
 ---
-title: "Condition-specific utility calculation"
+title: "Utility value calculation"
+subtitle: "Vignette version number 1.1.0"
+date: "Last reviewed 07/10/21"
+author: "Laura Webster and Duncan Gillespie"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{Condition_specific_utility_calculation}
+  %\VignetteIndexEntry{Utility value calculation}
   %\VignetteEncoding{UTF-8}
   %\VignetteEngine{knitr::rmarkdown}
 editor_options: 
@@ -27,10 +30,11 @@ knitr::opts_chunk$set(
 #knitr::opts_knit$set(root.dir = "//tsclient/X/ScHARR/PR_STAPM/Code/R_packages/qalyr")
 ```
 
+## Overview
 This vignette provides some explanation of how the functions within `qalyr` are used to implement [our methodology](https://stapm.gitlab.io/r-packages/qalyr/articles/qaly_estimation_report.pdf). See also the [example workflows](https://stapm.gitlab.io/r-packages/qalyr/articles/qalyr.html).  
 
 ## HODaR data
-The `qalyr` package contains functions to read and process the HODAR data [@currie2005routine] into a suitable form for use in our modelling. The raw data is in two files: the inpatient data `read_inpatient_data()` and the survey data `read_survey_data()`. The raw data was provided to us with only episodes with at least one tobacco- or alcohol-related diagnosis code in it. 
+The `qalyr` package contains functions to read and process the HODAR data [@currie2005routine] into a suitable form for use in our modelling. The raw data is in two files: the inpatient data `qalyr::read_inpatient_data()` and the survey data `qalyr::read_survey_data()`. The raw data was provided to us with only episodes with at least one tobacco- or alcohol-related diagnosis code in it. 
 
 With this data we want to:   
 
@@ -40,9 +44,8 @@ With this data we want to:
 
 To do this, we need to combine the two data. The only variable we have to match on is the patient ID. Due to some patients having multiple admissions within the time between surveys were sent, we have designed a set of rules for matching.  
 
-
 ## Merging the inpatient data and the survey data 
-The function `merge_data()` merges the two datasets provided: inpatient data and survey data. These are provided at episode level, for episodes with at least one diagnostic code that is tobacco or alcohol-related. 
+The function `qalyr::merge_data()` merges the two datasets provided: inpatient data and survey data. These are provided at episode level, for episodes with at least one diagnostic code that is tobacco or alcohol-related. 
 
 ### Format inpatient data 
 The function loops through each diagnosis column in the inpatient data and searches for ICD-10 codes that match alcohol/tobacco-related conditions (using the lkup table). A new column is created for each condition in the lkup table (alcohol and tobacco related conditions) and stores a binary variable, 1 if the patient had a diagnostic code that matched that condition, and 0 if not. 
@@ -57,9 +60,8 @@ The function reads in the survey data, and matches it to the inpatient data by '
 2. The time between the patient being discharged and the survey being sent must be under a year,
 3. If an admission was matched with two surveys, the admission is matched to the earliest survey. 
 
-
 ## Objective one: Calculating condition-specific utilities 
-The function `CalcUtils()` calculates the average utility for each alcohol/tobacco-related condition. This is done by averaging the utility values for each condition across all surveys.  
+The function `qalyr::CalcUtils()` calculates the average utility for each alcohol/tobacco-related condition. This is done by averaging the utility values for each condition across all surveys.  
 
 ## Objective two: General population utilities
 We use published estimates to inform our general population utilities. Baseline HSUVs profiles are assumed to be equal to the profile of HSUVs from the general population, adjusted for age and sex (i.e. all individuals irrespective of disease history). A formula was created using the Health Survey for England (n = 26,679). The code in the `data_raw` package folder `Prep_GenPopUtil.R` creates a new data table where all combinations of age and sex are present - this is embedded as package data. Age-sex-specific general population utilities are calculated using the formula from Ara and Brazier [-@Ara2010].  
@@ -67,10 +69,10 @@ We use published estimates to inform our general population utilities. Baseline 
 ## Objective three: Adjust condition-specific utilities by age and sex 
 To calculate age-sex-condition specific HSUVs, we calculate a multiplier. The multiplier is a constant proportional effect that is applied to the age-sex baseline HSUVs to calculate the age-sex-condition HSUVs.   
 
-The multiplier for a condition is obtained using the HSUV for the condition and the baseline HSUV for individuals with the same mean age and proportion of males as the condition `MeanAge_Sex()`.   
+The multiplier for a condition is obtained using the HSUV for the condition and the baseline HSUV for individuals with the same mean age and proportion of males as the condition `qalyr::MeanAge_Sex()`.   
 
 In order to calculate age-sex-condition specific HSUVs, we need to calculate the mean age and proportion of males in the condition population. We do this by using the merged HODAR and inpatient data collapsed into survey level data. We average across the surveys for each condition to calculate the average age and proportion of males with that condition. 
 
-Need to calculate the matched age-sex specific general population utility. In the function `Adj_cond_utils()`, we read in the general population utilities (`qalyr::GenPopUtil`), the mean age and sex by condition, and the condition-specific utilities. We create a column for the matched general population HSUV using the mean age and proportion of males as inputs. The matched general population HSUV gives the general population HSUV for the same population as those who get sick from that condition. This is a way to match the two HSUVs to calculate the multiplier.
+Need to calculate the matched age-sex specific general population utility. In the function `qalyr::Adj_cond_utils()`, we read in the general population utilities (`qalyr::GenPopUtil`), the mean age and sex by condition, and the condition-specific utilities. We create a column for the matched general population HSUV using the mean age and proportion of males as inputs. The matched general population HSUV gives the general population HSUV for the same population as those who get sick from that condition. This is a way to match the two HSUVs to calculate the multiplier.
 
 ## References 

@@ -1,5 +1,5 @@
 
-#' Calculate the average utility for each alcohol/tobacco-related condition \lifecycle{maturing}
+#' Calculate the average utility for each alcohol/tobacco-related condition
 #'
 #' Due to small sample sizes, we first use this function to calculate
 #' the average utility for each condition, without any demographic stratification.

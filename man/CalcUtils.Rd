@@ -2,7 +2,7 @@
 % Please edit documentation in R/CalcUtils.R
 \name{CalcUtils}
 \alias{CalcUtils}
-\title{Calculate the average utility for each alcohol/tobacco-related condition \lifecycle{maturing}}
+\title{Calculate the average utility for each alcohol/tobacco-related condition}
 \usage{
 CalcUtils(data, lkup)
 }

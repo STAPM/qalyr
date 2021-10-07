@@ -2,7 +2,7 @@
 % Please edit documentation in R/Collapse_adm_survey.R
 \name{Collapse_adm_survey}
 \alias{Collapse_adm_survey}
-\title{Collapse admissions into surveys \lifecycle{maturing}}
+\title{Collapse admissions into surveys}
 \usage{
 Collapse_adm_survey(data)
 }

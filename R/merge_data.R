@@ -1,5 +1,5 @@
 
-#' Merge the inpatient and survey HODaR data together \lifecycle{maturing}
+#' Merge the inpatient and survey HODaR data together
 #'
 #' As the inpatient data and survey data were provided separately,
 #' this function merges the two datasets, matching the survey information

@@ -1,5 +1,5 @@
 
-#' Reads in survey HODaR data \lifecycle{stable}
+#' Reads in survey HODaR data
 #'
 #' Reads in the survey data and calculate EQ5D.
 #'

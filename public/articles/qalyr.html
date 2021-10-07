@@ -63,7 +63,7 @@
 <ul class="nav navbar-nav navbar-right">
 <li>
   <a href="https://gitlab.com/stapm/r-packages/qalyr">
-    <span class="fab fa fab fa-gitlab fa-lg"></span>
+    <span class="fab fa-gitlab fa-lg"></span>
      
   </a>
 </li>
@@ -83,8 +83,7 @@
 
       
 
-      </header><script src="qalyr_files/header-attrs-2.5/header-attrs.js"></script><script src="qalyr_files/accessible-code-block-0.0.1/empty-anchor.js"></script><link href="qalyr_files/anchor-sections-1.0/anchor-sections.css" rel="stylesheet">
-<script src="qalyr_files/anchor-sections-1.0/anchor-sections.js"></script><div class="row">
+      </header><script src="qalyr_files/header-attrs-2.11/header-attrs.js"></script><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>Get started</h1>
@@ -117,16 +116,16 @@
 <span class="va">data</span> <span class="op">&lt;-</span> <span class="fu">qalyr</span><span class="fu">::</span><span class="fu"><a href="../reference/merge_data.html">merge_data</a></span><span class="op">(</span>
   inpatient_data <span class="op">=</span> <span class="fu">qalyr</span><span class="fu">::</span><span class="fu"><a href="../reference/read_inpatient_data.html">read_inpatient_data</a></span><span class="op">(</span><span class="op">)</span>,
   survey_data <span class="op">=</span> <span class="fu">qalyr</span><span class="fu">::</span><span class="fu"><a href="../reference/read_survey_data.html">read_survey_data</a></span><span class="op">(</span><span class="op">)</span>,
-  lkup <span class="op">=</span> <span class="fu">qalyr</span><span class="fu">::</span><span class="va"><a href="../reference/lkup.html">lkup</a></span><span class="op">)</span>
+  lkup <span class="op">=</span> <span class="fu">qalyr</span><span class="fu">::</span><span class="va">lkup</span><span class="op">)</span>
 
 <span class="co"># With this data we can calculate the condition-specific HSUVs, and the mean age and proportion of </span>
 <span class="co"># males by condition. These are both used as inputs to calculate the age-sex-condition-specific HSUVs </span>
 
 <span class="co"># Condition-specific utilities</span>
-<span class="va">cond_utils</span> <span class="op">&lt;-</span> <span class="fu">qalyr</span><span class="fu">::</span><span class="fu"><a href="../reference/CalcUtils.html">CalcUtils</a></span><span class="op">(</span><span class="va">data</span>, lkup <span class="op">=</span> <span class="fu">qalyr</span><span class="fu">::</span><span class="va"><a href="../reference/lkup.html">lkup</a></span><span class="op">)</span>
+<span class="va">cond_utils</span> <span class="op">&lt;-</span> <span class="fu">qalyr</span><span class="fu">::</span><span class="fu"><a href="../reference/CalcUtils.html">CalcUtils</a></span><span class="op">(</span><span class="va">data</span>, lkup <span class="op">=</span> <span class="fu">qalyr</span><span class="fu">::</span><span class="va">lkup</span><span class="op">)</span>
 
 <span class="co"># Mean age and proportion of males </span>
-<span class="va">mean_age_sex</span> <span class="op">&lt;-</span> <span class="fu">qalyr</span><span class="fu">::</span><span class="fu"><a href="../reference/MeanAge_Sex.html">MeanAge_Sex</a></span><span class="op">(</span><span class="va">data</span>, lkup <span class="op">=</span> <span class="fu">qalyr</span><span class="fu">::</span><span class="va"><a href="../reference/lkup.html">lkup</a></span><span class="op">)</span>
+<span class="va">mean_age_sex</span> <span class="op">&lt;-</span> <span class="fu">qalyr</span><span class="fu">::</span><span class="fu"><a href="../reference/MeanAge_Sex.html">MeanAge_Sex</a></span><span class="op">(</span><span class="va">data</span>, lkup <span class="op">=</span> <span class="fu">qalyr</span><span class="fu">::</span><span class="va">lkup</span><span class="op">)</span>
 
 <span class="co"># age-sex-condition-specific utilities </span>
 <span class="va">adj_cond_utils</span> <span class="op">&lt;-</span> <span class="fu">qalyr</span><span class="fu">::</span><span class="fu"><a href="../reference/Adj_cond_utils.html">Adj_cond_utils</a></span><span class="op">(</span>Age_Sex_data <span class="op">=</span> <span class="va">mean_age_sex</span>,

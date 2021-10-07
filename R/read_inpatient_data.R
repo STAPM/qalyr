@@ -1,5 +1,5 @@
 
-#' Reads in inpatient HODaR data \lifecycle{stable}
+#' Reads in inpatient HODaR data
 #'
 #' Reads in the inpatient data, retaining required columns: patient number, admission date,
 #' discharge date, episode number, diagnoses codes 1-13.

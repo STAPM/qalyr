@@ -2,7 +2,7 @@
 % Please edit documentation in R/Adj_cond_utils.R
 \name{Adj_cond_utils}
 \alias{Adj_cond_utils}
-\title{Adjust the condition-specific utility for age and sex \lifecycle{maturing}}
+\title{Adjust the condition-specific utility for age and sex}
 \usage{
 Adj_cond_utils(
   Age_Sex_data,
