@@ -1,8 +1,5 @@
 ---
 title: "Utility value calculation"
-subtitle: "Vignette version number 1.1.0"
-date: "Last reviewed 07/10/21"
-author: "Laura Webster and Duncan Gillespie"
 output: rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{Utility value calculation}
@@ -10,7 +7,7 @@ vignette: >
   %\VignetteEngine{knitr::rmarkdown}
 editor_options: 
   chunk_output_type: console
-bibliography: REFERENCES.bib
+bibliography: refs/REFERENCES.bib
 link-citations: yes
 citation_package: natbib
 biblio-style: vancouver
@@ -30,8 +27,6 @@ knitr::opts_chunk$set(
 #knitr::opts_knit$set(root.dir = "//tsclient/X/ScHARR/PR_STAPM/Code/R_packages/qalyr")
 ```
 
-## Overview
-This vignette provides some explanation of how the functions within `qalyr` are used to implement [our methodology](https://stapm.gitlab.io/r-packages/qalyr/articles/qaly_estimation_report.pdf). See also the [example workflows](https://stapm.gitlab.io/r-packages/qalyr/articles/qalyr.html).  
 
 ## HODaR data
 The `qalyr` package contains functions to read and process the HODAR data [@currie2005routine] into a suitable form for use in our modelling. The raw data is in two files: the inpatient data `qalyr::read_inpatient_data()` and the survey data `qalyr::read_survey_data()`. The raw data was provided to us with only episodes with at least one tobacco- or alcohol-related diagnosis code in it. 

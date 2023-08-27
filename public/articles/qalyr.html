@@ -32,6 +32,8 @@
 </script>
 </head>
 <body data-spy="scroll" data-target="#toc">
+    
+
     <div class="container template-article">
       <header><div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -44,7 +46,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">qalyr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.0.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.0.0</span>
       </span>
     </div>
 
@@ -56,19 +58,37 @@
 <li>
   <a href="../reference/index.html">Functions</a>
 </li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    Technical documentation
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
 <li>
-  <a href="../articles/index.html">Technical documentation</a>
+      <a href="../articles/Condition_specific_utility_calculation.html">Code vignette</a>
+    </li>
+    <li>
+      <a href="../articles/qaly_estimation_report.pdf">Methods notes: Condition-specific utility estimation</a>
+    </li>
+  </ul>
 </li>
       </ul>
 <ul class="nav navbar-nav navbar-right">
 <li>
-  <a href="https://gitlab.com/stapm/r-packages/qalyr">
+  <a href="https://github.com/STAPM/qalyr" class="external-link">
+    <span class="fab fa-github fa-lg"></span>
+     
+  </a>
+</li>
+<li>
+  <a href="https://gitlab.com/stapm/r-packages/qalyr" class="external-link">
     <span class="fab fa-gitlab fa-lg"></span>
      
   </a>
 </li>
 <li>
-  <a href="https://stapm.gitlab.io/software.html">
+  <a href="https://stapm.gitlab.io/software.html" class="external-link">
     <span class="fa fa-code"></span>
      
   </a>
@@ -83,7 +103,7 @@
 
       
 
-      </header><script src="qalyr_files/header-attrs-2.11/header-attrs.js"></script><div class="row">
+      </header><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>Get started</h1>
@@ -96,41 +116,44 @@
 
     
     
-<p>The code behind our <a href="https://stapm.gitlab.io/model-inputs/utility_report/qaly_estimation_report.pdf">methodology report</a> is in <a href="https://gitlab.com/stapm/model-inputs/utility_report">this repo</a>.</p>
-<p>We show the use of the <code>qalyr</code> functions in the workflows below. At the moment, these workflows are accessible only to the project team - who are added to the STAPM Gitlab organisation.</p>
+<p>We show the use of the <code>qalyr</code> functions in the workflows
+below. At the moment, these workflows are accessible only to the project
+team - who are added to the STAPM Gitlab organisation.</p>
 <ul>
-<li><a href="https://gitlab.com/stapm/model-inputs/utility_value_estimation">Estimation of health state utility values</a></li>
+<li><a href="https://gitlab.com/stapm/model-inputs/utility_value_estimation" class="external-link">Estimation
+of health state utility values</a></li>
 </ul>
-<div id="basic-functionality" class="section level2">
-<h2 class="hasAnchor">
-<a href="#basic-functionality" class="anchor"></a>Basic functionality</h2>
-<div id="load-and-merge-data" class="section level3">
-<h3 class="hasAnchor">
-<a href="#load-and-merge-data" class="anchor"></a>Load and merge data</h3>
-<p>The data is stored in <code>D:/QALYs/Raw/</code>. The following code will read, clean, filter, and combine the data.</p>
+<div class="section level2">
+<h2 id="basic-functionality">Basic functionality<a class="anchor" aria-label="anchor" href="#basic-functionality"></a>
+</h2>
+<div class="section level3">
+<h3 id="load-and-merge-data">Load and merge data<a class="anchor" aria-label="anchor" href="#load-and-merge-data"></a>
+</h3>
+<p>The following code will read, clean, filter, and combine the
+data.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R">
-<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://stapm.gitlab.io/r-packages/qalyr/">qalyr</a></span><span class="op">)</span>
-
-<span class="co"># Merge inpatient data and HODAR data and collapse to survey level data </span>
-<span class="va">data</span> <span class="op">&lt;-</span> <span class="fu">qalyr</span><span class="fu">::</span><span class="fu"><a href="../reference/merge_data.html">merge_data</a></span><span class="op">(</span>
-  inpatient_data <span class="op">=</span> <span class="fu">qalyr</span><span class="fu">::</span><span class="fu"><a href="../reference/read_inpatient_data.html">read_inpatient_data</a></span><span class="op">(</span><span class="op">)</span>,
-  survey_data <span class="op">=</span> <span class="fu">qalyr</span><span class="fu">::</span><span class="fu"><a href="../reference/read_survey_data.html">read_survey_data</a></span><span class="op">(</span><span class="op">)</span>,
-  lkup <span class="op">=</span> <span class="fu">qalyr</span><span class="fu">::</span><span class="va">lkup</span><span class="op">)</span>
-
-<span class="co"># With this data we can calculate the condition-specific HSUVs, and the mean age and proportion of </span>
-<span class="co"># males by condition. These are both used as inputs to calculate the age-sex-condition-specific HSUVs </span>
-
-<span class="co"># Condition-specific utilities</span>
-<span class="va">cond_utils</span> <span class="op">&lt;-</span> <span class="fu">qalyr</span><span class="fu">::</span><span class="fu"><a href="../reference/CalcUtils.html">CalcUtils</a></span><span class="op">(</span><span class="va">data</span>, lkup <span class="op">=</span> <span class="fu">qalyr</span><span class="fu">::</span><span class="va">lkup</span><span class="op">)</span>
-
-<span class="co"># Mean age and proportion of males </span>
-<span class="va">mean_age_sex</span> <span class="op">&lt;-</span> <span class="fu">qalyr</span><span class="fu">::</span><span class="fu"><a href="../reference/MeanAge_Sex.html">MeanAge_Sex</a></span><span class="op">(</span><span class="va">data</span>, lkup <span class="op">=</span> <span class="fu">qalyr</span><span class="fu">::</span><span class="va">lkup</span><span class="op">)</span>
-
-<span class="co"># age-sex-condition-specific utilities </span>
-<span class="va">adj_cond_utils</span> <span class="op">&lt;-</span> <span class="fu">qalyr</span><span class="fu">::</span><span class="fu"><a href="../reference/Adj_cond_utils.html">Adj_cond_utils</a></span><span class="op">(</span>Age_Sex_data <span class="op">=</span> <span class="va">mean_age_sex</span>,
-                                 Condition_utilities <span class="op">=</span> <span class="va">cond_utils</span>,
-                                 GenPopUtil <span class="op">=</span> <span class="fu">qalyr</span><span class="fu">::</span><span class="va"><a href="../reference/GenPopUtil.html">GenPopUtil</a></span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://stapm.gitlab.io/r-packages/qalyr/">qalyr</a></span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Merge inpatient data and HODAR data and collapse to survey level data </span></span>
+<span><span class="va">data</span> <span class="op">&lt;-</span> <span class="fu">qalyr</span><span class="fu">::</span><span class="fu"><a href="../reference/merge_data.html">merge_data</a></span><span class="op">(</span></span>
+<span>  inpatient_data <span class="op">=</span> <span class="fu">qalyr</span><span class="fu">::</span><span class="fu"><a href="../reference/read_inpatient_data.html">read_inpatient_data</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>  survey_data <span class="op">=</span> <span class="fu">qalyr</span><span class="fu">::</span><span class="fu"><a href="../reference/read_survey_data.html">read_survey_data</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>  lkup <span class="op">=</span> <span class="fu">qalyr</span><span class="fu">::</span><span class="va">lkup</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># With this data we can calculate the condition-specific HSUVs, and the mean age and proportion of </span></span>
+<span><span class="co"># males by condition. These are both used as inputs to calculate the age-sex-condition-specific HSUVs </span></span>
+<span></span>
+<span><span class="co"># Condition-specific utilities</span></span>
+<span><span class="va">cond_utils</span> <span class="op">&lt;-</span> <span class="fu">qalyr</span><span class="fu">::</span><span class="fu"><a href="../reference/CalcUtils.html">CalcUtils</a></span><span class="op">(</span><span class="va">data</span>, lkup <span class="op">=</span> <span class="fu">qalyr</span><span class="fu">::</span><span class="va">lkup</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Mean age and proportion of males </span></span>
+<span><span class="va">mean_age_sex</span> <span class="op">&lt;-</span> <span class="fu">qalyr</span><span class="fu">::</span><span class="fu"><a href="../reference/MeanAge_Sex.html">MeanAge_Sex</a></span><span class="op">(</span><span class="va">data</span>, lkup <span class="op">=</span> <span class="fu">qalyr</span><span class="fu">::</span><span class="va">lkup</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># age-sex-condition-specific utilities </span></span>
+<span><span class="va">adj_cond_utils</span> <span class="op">&lt;-</span> <span class="fu">qalyr</span><span class="fu">::</span><span class="fu"><a href="../reference/Adj_cond_utils.html">Adj_cond_utils</a></span><span class="op">(</span>Age_Sex_data <span class="op">=</span> <span class="va">mean_age_sex</span>,</span>
+<span>                                 Condition_utilities <span class="op">=</span> <span class="va">cond_utils</span>,</span>
+<span>                                 GenPopUtil <span class="op">=</span> <span class="fu">qalyr</span><span class="fu">::</span><span class="va"><a href="../reference/GenPopUtil.html">GenPopUtil</a></span><span class="op">)</span></span></code></pre></div>
 </div>
 </div>
   </div>
@@ -146,11 +169,13 @@
 
 
       <footer><div class="copyright">
-  <p>Developed by <a href="https://www.sheffield.ac.uk/scharr/sections/heds/staff/gillespie_d">Duncan Gillespie</a>, Laura Webster, <a href="https://www.sheffield.ac.uk/scharr/sections/heds/staff/angus_c">Colin Angus</a>, <a href="https://www.sheffield.ac.uk/scharr/sections/heds/staff/brennan_a">Alan Brennan</a>.</p>
+  <p></p>
+<p>Developed by <a href="https://www.sheffield.ac.uk/smph/duncan-gillespie" class="external-link">Duncan Gillespie</a>, Laura Webster, <a href="https://www.sheffield.ac.uk/smph/colin-angus" class="external-link">Colin Angus</a>, <a href="https://www.sheffield.ac.uk/smph/alan-brennan" class="external-link">Alan Brennan</a>.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
+  <p></p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.7.</p>
 </div>
 
       </footer>
@@ -158,6 +183,8 @@
 
   
 
+
+  
 
   </body>
 </html>

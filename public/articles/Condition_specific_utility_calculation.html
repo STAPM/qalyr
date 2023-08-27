@@ -32,6 +32,8 @@
 </script>
 </head>
 <body data-spy="scroll" data-target="#toc">
+    
+
     <div class="container template-article">
       <header><div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -44,7 +46,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">qalyr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.0.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.0.0</span>
       </span>
     </div>
 
@@ -56,19 +58,37 @@
 <li>
   <a href="../reference/index.html">Functions</a>
 </li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    Technical documentation
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
 <li>
-  <a href="../articles/index.html">Technical documentation</a>
+      <a href="../articles/Condition_specific_utility_calculation.html">Code vignette</a>
+    </li>
+    <li>
+      <a href="../articles/qaly_estimation_report.pdf">Methods notes: Condition-specific utility estimation</a>
+    </li>
+  </ul>
 </li>
       </ul>
 <ul class="nav navbar-nav navbar-right">
 <li>
-  <a href="https://gitlab.com/stapm/r-packages/qalyr">
+  <a href="https://github.com/STAPM/qalyr" class="external-link">
+    <span class="fab fa-github fa-lg"></span>
+     
+  </a>
+</li>
+<li>
+  <a href="https://gitlab.com/stapm/r-packages/qalyr" class="external-link">
     <span class="fab fa-gitlab fa-lg"></span>
      
   </a>
 </li>
 <li>
-  <a href="https://stapm.gitlab.io/software.html">
+  <a href="https://stapm.gitlab.io/software.html" class="external-link">
     <span class="fa fa-code"></span>
      
   </a>
@@ -83,14 +103,11 @@
 
       
 
-      </header><script src="Condition_specific_utility_calculation_files/header-attrs-2.11/header-attrs.js"></script><div class="row">
+      </header><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>Utility value calculation</h1>
-            <h3 class="subtitle">Vignette version number 1.1.0</h3>
-                        <h4 class="author">Laura Webster and Duncan Gillespie</h4>
             
-            <h4 class="date">Last reviewed 07/10/21</h4>
       
       
       <div class="hidden name"><code>Condition_specific_utility_calculation.Rmd</code></div>
@@ -99,75 +116,135 @@
 
     
     
-<div id="overview" class="section level2">
-<h2 class="hasAnchor">
-<a href="#overview" class="anchor"></a>Overview</h2>
-<p>This vignette provides some explanation of how the functions within <code>qalyr</code> are used to implement <a href="https://stapm.gitlab.io/r-packages/qalyr/articles/qaly_estimation_report.pdf">our methodology</a>. See also the <a href="https://stapm.gitlab.io/r-packages/qalyr/articles/qalyr.html">example workflows</a>.</p>
-</div>
-<div id="hodar-data" class="section level2">
-<h2 class="hasAnchor">
-<a href="#hodar-data" class="anchor"></a>HODaR data</h2>
-<p>The <code>qalyr</code> package contains functions to read and process the HODAR data <span class="citation">(<a href="#ref-currie2005routine" role="doc-biblioref">Currie et al. 2005</a>)</span> into a suitable form for use in our modelling. The raw data is in two files: the inpatient data <code><a href="../reference/read_inpatient_data.html">qalyr::read_inpatient_data()</a></code> and the survey data <code><a href="../reference/read_survey_data.html">qalyr::read_survey_data()</a></code>. The raw data was provided to us with only episodes with at least one tobacco- or alcohol-related diagnosis code in it.</p>
+<div class="section level2">
+<h2 id="hodar-data">HODaR data<a class="anchor" aria-label="anchor" href="#hodar-data"></a>
+</h2>
+<p>The <code>qalyr</code> package contains functions to read and process
+the HODAR data <span class="citation">(<a href="#ref-currie2005routine" role="doc-biblioref">Currie et al. 2005</a>)</span> into a suitable form
+for use in our modelling. The raw data is in two files: the inpatient
+data <code><a href="../reference/read_inpatient_data.html">qalyr::read_inpatient_data()</a></code> and the survey data
+<code><a href="../reference/read_survey_data.html">qalyr::read_survey_data()</a></code>. The raw data was provided to us
+with only episodes with at least one tobacco- or alcohol-related
+diagnosis code in it.</p>
 <p>With this data we want to:</p>
 <ul>
-<li>Estimate utilities for each condition in our joint tobacco and alcohol disease list.</li>
-<li>Estimate utilities for the general population, stratified by age and sex.</li>
+<li>Estimate utilities for each condition in our joint tobacco and
+alcohol disease list.</li>
+<li>Estimate utilities for the general population, stratified by age and
+sex.</li>
 <li>Estimate age-sex-condition specific utilities.</li>
 </ul>
-<p>To do this, we need to combine the two data. The only variable we have to match on is the patient ID. Due to some patients having multiple admissions within the time between surveys were sent, we have designed a set of rules for matching.</p>
+<p>To do this, we need to combine the two data. The only variable we
+have to match on is the patient ID. Due to some patients having multiple
+admissions within the time between surveys were sent, we have designed a
+set of rules for matching.</p>
 </div>
-<div id="merging-the-inpatient-data-and-the-survey-data" class="section level2">
-<h2 class="hasAnchor">
-<a href="#merging-the-inpatient-data-and-the-survey-data" class="anchor"></a>Merging the inpatient data and the survey data</h2>
-<p>The function <code><a href="../reference/merge_data.html">qalyr::merge_data()</a></code> merges the two datasets provided: inpatient data and survey data. These are provided at episode level, for episodes with at least one diagnostic code that is tobacco or alcohol-related.</p>
-<div id="format-inpatient-data" class="section level3">
-<h3 class="hasAnchor">
-<a href="#format-inpatient-data" class="anchor"></a>Format inpatient data</h3>
-<p>The function loops through each diagnosis column in the inpatient data and searches for ICD-10 codes that match alcohol/tobacco-related conditions (using the lkup table). A new column is created for each condition in the lkup table (alcohol and tobacco related conditions) and stores a binary variable, 1 if the patient had a diagnostic code that matched that condition, and 0 if not.</p>
+<div class="section level2">
+<h2 id="merging-the-inpatient-data-and-the-survey-data">Merging the inpatient data and the survey data<a class="anchor" aria-label="anchor" href="#merging-the-inpatient-data-and-the-survey-data"></a>
+</h2>
+<p>The function <code><a href="../reference/merge_data.html">qalyr::merge_data()</a></code> merges the two datasets
+provided: inpatient data and survey data. These are provided at episode
+level, for episodes with at least one diagnostic code that is tobacco or
+alcohol-related.</p>
+<div class="section level3">
+<h3 id="format-inpatient-data">Format inpatient data<a class="anchor" aria-label="anchor" href="#format-inpatient-data"></a>
+</h3>
+<p>The function loops through each diagnosis column in the inpatient
+data and searches for ICD-10 codes that match alcohol/tobacco-related
+conditions (using the lkup table). A new column is created for each
+condition in the lkup table (alcohol and tobacco related conditions) and
+stores a binary variable, 1 if the patient had a diagnostic code that
+matched that condition, and 0 if not.</p>
 </div>
-<div id="episode-to-admission-level" class="section level3">
-<h3 class="hasAnchor">
-<a href="#episode-to-admission-level" class="anchor"></a>Episode to admission level</h3>
-<p>Episodes are then collapsed into admissions. All conditions that were included across the admission are retained (sum across episodes). This leaves a row for each admission, with a column for each condition signifying whether they had any diagnostic code related to alcohol or tobacco.</p>
+<div class="section level3">
+<h3 id="episode-to-admission-level">Episode to admission level<a class="anchor" aria-label="anchor" href="#episode-to-admission-level"></a>
+</h3>
+<p>Episodes are then collapsed into admissions. All conditions that were
+included across the admission are retained (sum across episodes). This
+leaves a row for each admission, with a column for each condition
+signifying whether they had any diagnostic code related to alcohol or
+tobacco.</p>
 </div>
-<div id="match-data" class="section level3">
-<h3 class="hasAnchor">
-<a href="#match-data" class="anchor"></a>Match data</h3>
-<p>The function reads in the survey data, and matches it to the inpatient data by ‘Patient_Number.’ Three rules are implemented to make sure the surveys are matched to the appropriate admissions to the survey:</p>
+<div class="section level3">
+<h3 id="match-data">Match data<a class="anchor" aria-label="anchor" href="#match-data"></a>
+</h3>
+<p>The function reads in the survey data, and matches it to the
+inpatient data by ‘Patient_Number’. Three rules are implemented to make
+sure the surveys are matched to the appropriate admissions to the
+survey:</p>
 <ol style="list-style-type: decimal">
 <li>The admission must be discharged before the survey was sent,</li>
-<li>The time between the patient being discharged and the survey being sent must be under a year,</li>
-<li>If an admission was matched with two surveys, the admission is matched to the earliest survey.</li>
+<li>The time between the patient being discharged and the survey being
+sent must be under a year,</li>
+<li>If an admission was matched with two surveys, the admission is
+matched to the earliest survey.</li>
 </ol>
 </div>
 </div>
-<div id="objective-one-calculating-condition-specific-utilities" class="section level2">
-<h2 class="hasAnchor">
-<a href="#objective-one-calculating-condition-specific-utilities" class="anchor"></a>Objective one: Calculating condition-specific utilities</h2>
-<p>The function <code><a href="../reference/CalcUtils.html">qalyr::CalcUtils()</a></code> calculates the average utility for each alcohol/tobacco-related condition. This is done by averaging the utility values for each condition across all surveys.</p>
+<div class="section level2">
+<h2 id="objective-one-calculating-condition-specific-utilities">Objective one: Calculating condition-specific utilities<a class="anchor" aria-label="anchor" href="#objective-one-calculating-condition-specific-utilities"></a>
+</h2>
+<p>The function <code><a href="../reference/CalcUtils.html">qalyr::CalcUtils()</a></code> calculates the average
+utility for each alcohol/tobacco-related condition. This is done by
+averaging the utility values for each condition across all surveys.</p>
 </div>
-<div id="objective-two-general-population-utilities" class="section level2">
-<h2 class="hasAnchor">
-<a href="#objective-two-general-population-utilities" class="anchor"></a>Objective two: General population utilities</h2>
-<p>We use published estimates to inform our general population utilities. Baseline HSUVs profiles are assumed to be equal to the profile of HSUVs from the general population, adjusted for age and sex (i.e. all individuals irrespective of disease history). A formula was created using the Health Survey for England (n = 26,679). The code in the <code>data_raw</code> package folder <code>Prep_GenPopUtil.R</code> creates a new data table where all combinations of age and sex are present - this is embedded as package data. Age-sex-specific general population utilities are calculated using the formula from Ara and Brazier <span class="citation">(<a href="#ref-Ara2010" role="doc-biblioref">2010</a>)</span>.</p>
+<div class="section level2">
+<h2 id="objective-two-general-population-utilities">Objective two: General population utilities<a class="anchor" aria-label="anchor" href="#objective-two-general-population-utilities"></a>
+</h2>
+<p>We use published estimates to inform our general population
+utilities. Baseline HSUVs profiles are assumed to be equal to the
+profile of HSUVs from the general population, adjusted for age and sex
+(i.e. all individuals irrespective of disease history). A formula was
+created using the Health Survey for England (n = 26,679). The code in
+the <code>data_raw</code> package folder <code>Prep_GenPopUtil.R</code>
+creates a new data table where all combinations of age and sex are
+present - this is embedded as package data. Age-sex-specific general
+population utilities are calculated using the formula from Ara and
+Brazier <span class="citation">(<a href="#ref-Ara2010" role="doc-biblioref">2010</a>)</span>.</p>
 </div>
-<div id="objective-three-adjust-condition-specific-utilities-by-age-and-sex" class="section level2">
-<h2 class="hasAnchor">
-<a href="#objective-three-adjust-condition-specific-utilities-by-age-and-sex" class="anchor"></a>Objective three: Adjust condition-specific utilities by age and sex</h2>
-<p>To calculate age-sex-condition specific HSUVs, we calculate a multiplier. The multiplier is a constant proportional effect that is applied to the age-sex baseline HSUVs to calculate the age-sex-condition HSUVs.</p>
-<p>The multiplier for a condition is obtained using the HSUV for the condition and the baseline HSUV for individuals with the same mean age and proportion of males as the condition <code><a href="../reference/MeanAge_Sex.html">qalyr::MeanAge_Sex()</a></code>.</p>
-<p>In order to calculate age-sex-condition specific HSUVs, we need to calculate the mean age and proportion of males in the condition population. We do this by using the merged HODAR and inpatient data collapsed into survey level data. We average across the surveys for each condition to calculate the average age and proportion of males with that condition.</p>
-<p>Need to calculate the matched age-sex specific general population utility. In the function <code><a href="../reference/Adj_cond_utils.html">qalyr::Adj_cond_utils()</a></code>, we read in the general population utilities (<code><a href="../reference/GenPopUtil.html">qalyr::GenPopUtil</a></code>), the mean age and sex by condition, and the condition-specific utilities. We create a column for the matched general population HSUV using the mean age and proportion of males as inputs. The matched general population HSUV gives the general population HSUV for the same population as those who get sick from that condition. This is a way to match the two HSUVs to calculate the multiplier.</p>
+<div class="section level2">
+<h2 id="objective-three-adjust-condition-specific-utilities-by-age-and-sex">Objective three: Adjust condition-specific utilities by age and
+sex<a class="anchor" aria-label="anchor" href="#objective-three-adjust-condition-specific-utilities-by-age-and-sex"></a>
+</h2>
+<p>To calculate age-sex-condition specific HSUVs, we calculate a
+multiplier. The multiplier is a constant proportional effect that is
+applied to the age-sex baseline HSUVs to calculate the age-sex-condition
+HSUVs.</p>
+<p>The multiplier for a condition is obtained using the HSUV for the
+condition and the baseline HSUV for individuals with the same mean age
+and proportion of males as the condition
+<code><a href="../reference/MeanAge_Sex.html">qalyr::MeanAge_Sex()</a></code>.</p>
+<p>In order to calculate age-sex-condition specific HSUVs, we need to
+calculate the mean age and proportion of males in the condition
+population. We do this by using the merged HODAR and inpatient data
+collapsed into survey level data. We average across the surveys for each
+condition to calculate the average age and proportion of males with that
+condition.</p>
+<p>Need to calculate the matched age-sex specific general population
+utility. In the function <code><a href="../reference/Adj_cond_utils.html">qalyr::Adj_cond_utils()</a></code>, we read
+in the general population utilities (<code><a href="../reference/GenPopUtil.html">qalyr::GenPopUtil</a></code>),
+the mean age and sex by condition, and the condition-specific utilities.
+We create a column for the matched general population HSUV using the
+mean age and proportion of males as inputs. The matched general
+population HSUV gives the general population HSUV for the same
+population as those who get sick from that condition. This is a way to
+match the two HSUVs to calculate the multiplier.</p>
 </div>
-<div id="references" class="section level2 unnumbered">
-<h2 class="hasAnchor">
-<a href="#references" class="anchor"></a>References</h2>
+<div class="section level2 unnumbered">
+<h2 class="unnumbered" id="references">References<a class="anchor" aria-label="anchor" href="#references"></a>
+</h2>
 <div id="refs" class="references csl-bib-body hanging-indent">
 <div id="ref-Ara2010" class="csl-entry">
-Ara, Roberta, and John E Brazier. 2010. <span>“Populating an Economic Model with Health State Utility Values: Moving Toward Better Practice.”</span> <em>Value in Health</em> 13 (5): 509–18. <a href="https://doi.org/10.1111/j.1524-4733.2010.00700.x">https://doi.org/10.1111/j.1524-4733.2010.00700.x</a>.
+Ara, Roberta, and John E Brazier. 2010. <span>“Populating an Economic
+Model with Health State Utility Values: Moving Toward Better
+Practice.”</span> <em>Value in Health</em> 13 (5): 509–18. <a href="https://doi.org/10.1111/j.1524-4733.2010.00700.x" class="external-link">https://doi.org/10.1111/j.1524-4733.2010.00700.x</a>.
 </div>
 <div id="ref-currie2005routine" class="csl-entry">
-Currie, Craig J, Phil McEwan, John R Peters, Tunia C Patel, and Simon Dixon. 2005. <span>“The Routine Collation of Health Outcomes Data from Hospital Treated Subjects in the Health Outcomes Data Repository (HODaR): Descriptive Analysis from the First 20,000 Subjects.”</span> <em>Value in Health</em> 8 (5): 581–90. <a href="https://doi.org/10.1111/j.1524-4733.2005.00046.x">https://doi.org/10.1111/j.1524-4733.2005.00046.x</a>.
+Currie, Craig J, Phil McEwan, John R Peters, Tunia C Patel, and Simon
+Dixon. 2005. <span>“The Routine Collation of Health Outcomes Data from
+Hospital Treated Subjects in the Health Outcomes Data Repository
+(HODaR): Descriptive Analysis from the First 20,000 Subjects.”</span>
+<em>Value in Health</em> 8 (5): 581–90. <a href="https://doi.org/10.1111/j.1524-4733.2005.00046.x" class="external-link">https://doi.org/10.1111/j.1524-4733.2005.00046.x</a>.
 </div>
 </div>
 </div>
@@ -184,11 +261,13 @@ Currie, Craig J, Phil McEwan, John R Peters, Tunia C Patel, and Simon Dixon. 200
 
 
       <footer><div class="copyright">
-  <p>Developed by <a href="https://www.sheffield.ac.uk/scharr/sections/heds/staff/gillespie_d">Duncan Gillespie</a>, Laura Webster, <a href="https://www.sheffield.ac.uk/scharr/sections/heds/staff/angus_c">Colin Angus</a>, <a href="https://www.sheffield.ac.uk/scharr/sections/heds/staff/brennan_a">Alan Brennan</a>.</p>
+  <p></p>
+<p>Developed by <a href="https://www.sheffield.ac.uk/smph/duncan-gillespie" class="external-link">Duncan Gillespie</a>, Laura Webster, <a href="https://www.sheffield.ac.uk/smph/colin-angus" class="external-link">Colin Angus</a>, <a href="https://www.sheffield.ac.uk/smph/alan-brennan" class="external-link">Alan Brennan</a>.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
+  <p></p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.7.</p>
 </div>
 
       </footer>
@@ -196,6 +275,8 @@ Currie, Craig J, Phil McEwan, John R Peters, Tunia C Patel, and Simon Dixon. 200
 
   
 
+
+  
 
   </body>
 </html>

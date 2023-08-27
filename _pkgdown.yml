@@ -8,16 +8,16 @@ template:
     ganalytics: UA-167990045-1
 authors:
   Duncan Gillespie:
-    href: https://www.sheffield.ac.uk/scharr/sections/heds/staff/gillespie_d
+    href: https://www.sheffield.ac.uk/smph/duncan-gillespie
   Colin Angus:
-    href: https://www.sheffield.ac.uk/scharr/sections/heds/staff/angus_c
+    href: https://www.sheffield.ac.uk/smph/colin-angus
   Alan Brennan:
-    href: https://www.sheffield.ac.uk/scharr/sections/heds/staff/brennan_a
+    href: https://www.sheffield.ac.uk/smph/alan-brennan
 
 navbar:
   structure:
     left:  [home, intro, reference, articles]
-    right: [gitlab, software]
+    right: [github, gitlab, software]
   components:
     home: ~
     intro:
@@ -28,19 +28,21 @@ navbar:
      href: reference/index.html
     articles:
      text: Technical documentation
+     menu:
+      - text: "Code vignette"
+        href: articles/Condition_specific_utility_calculation.html
+      - text: "Methods notes: Condition-specific utility estimation"
+        href: articles/qaly_estimation_report.pdf
      href: articles/index.html
+    github:
+      icon: fab fa-github fa-lg
+      href: https://github.com/STAPM/qalyr
     gitlab:
       icon: fab fa-gitlab fa-lg
       href: https://gitlab.com/stapm/r-packages/qalyr
     software:
       icon: fa-code
       href: https://stapm.gitlab.io/software.html
-
-articles:
-- title: Code vignettes
-  contents:
-  - qalyr
-  - Condition_specific_utility_calculation
 
 reference:
 - title: Disease-specific utilities
